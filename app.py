@@ -49,7 +49,6 @@ st.session_state.setdefault("current_scenario", None)
 st.session_state.setdefault("question_seq", 0)
 st.session_state.setdefault("user_submitted", False)
 st.session_state.setdefault("evaluation_result", None)
-st.session_state.setdefault("show_clue", False)
 st.session_state.setdefault("show_target_verb", False)
 st.session_state.setdefault("difficulty_filter", "All")
 st.session_state.setdefault("starred_filter", False)
@@ -62,7 +61,6 @@ def reset_question():
     st.session_state.current_question = None
     st.session_state.user_submitted = False
     st.session_state.evaluation_result = None
-    st.session_state.show_clue = False
     st.session_state.show_target_verb = False
 
 
@@ -179,7 +177,6 @@ with tab_practice:
             st.session_state.question_seq += 1
             st.session_state.user_submitted = False
             st.session_state.evaluation_result = None
-            st.session_state.show_clue = False
 
     question = st.session_state.current_question
 
@@ -224,6 +221,7 @@ with tab_practice:
 
             if submit_clicked and not submitted and answer:
                 st.session_state.user_submitted = True
+                st.session_state.show_target_verb = True  # Auto-reveal so user can compare
                 with st.spinner("智能助教正在评估你的答案与用法偏好…"):
                     eval_obj = client.evaluate_answer(
                         question_data=question,
@@ -310,12 +308,7 @@ with tab_practice:
                 db_manager.toggle_star(st.session_state.current_verb)
                 st.rerun()
 
-            if not st.session_state.show_clue:
-                if st.button("获取词汇线索", icon=":material/lightbulb:", width="stretch"):
-                    st.session_state.show_clue = True
-                    st.rerun()
-            else:
-                st.info(md_escape(question["clue"]), icon=":material/lightbulb:")
+            st.info(md_escape(question["clue"]), icon=":material/lightbulb:")
 
             with st.container(border=True):
                 st.markdown("**当前测试词汇**")

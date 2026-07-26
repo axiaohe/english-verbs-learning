@@ -25,7 +25,7 @@ PLACEHOLDER_KEY = "your_gemini_api_key_here"
 
 class QuestionSchema(BaseModel):
     chinese_sentence: str = Field(
-        description="A natural daily life Chinese sentence that has a blank for the target English verb. Ensure it perfectly matches the given daily life scenario."
+        description="A natural daily-life Chinese sentence that naturally includes the Chinese translation/meaning of the target English verb. The Chinese meaning should appear as a visible, natural part of the sentence — NOT masked, blanked, or enclosed in brackets. The learner should be able to read the full Chinese sentence with the meaning clearly shown."
     )
     english_context: str = Field(
         description="A surrounding English dialog or context (1-2 sentences before or after the blank sentence) to provide rich conversational context."
@@ -37,7 +37,7 @@ class QuestionSchema(BaseModel):
         description="All acceptable English verbs in their exact correct form/tense for the blank. Include the base form and common inflections if applicable. E.g. ['close', 'shut']."
     )
     clue: str = Field(
-        description="A subtle hint in Chinese helping the user find the verb (e.g., '这个词表示关闭，也可以指店铺停止营业')"
+        description="A brief, friendly Chinese hint about the target verb — useful as quick reference while the learner thinks. Can include the English verb itself and its Chinese meaning. (e.g., '目标动词是 close，中文意思是关闭，也可以指店铺停止营业')"
     )
 
 
@@ -117,7 +117,7 @@ class GeminiClient:
             return self._get_mock_question(verb, definition, scenario)
 
         prompt = f"""
-        You are a professional ESL (English as a Second Language) teacher. Your goal is to generate an interactive, everyday practice question.
+        You are a professional ESL (English as a Second Language) teacher. Your goal is to generate an interactive, everyday practice question for a Chinese-speaking learner.
 
         Target English Verb to test: "{verb}" (definition: "{definition}").
         Lifestyle Scenario / Context: "{scenario}".
@@ -128,7 +128,8 @@ class GeminiClient:
         2. Create a vivid conversation context or a specific scene to make the language feel alive.
         3. Make sure the difficulty matches daily, practical communication.
         4. Supply a comprehensive list of acceptable English verbs (in the correct tense) for this exact blank in 'correct_verbs'.
-        5. Provide a helpful hint ('clue') in Chinese that guides the user to think of this verb.
+        5. The 'chinese_sentence' should be a natural Chinese sentence that VISIBLY includes the Chinese translation of the target verb — do NOT mask or blank the Chinese word. The learner should see the full Chinese meaning clearly. Only the English 'blanked_sentence' should have the blank.
+        6. Provide a helpful hint ('clue') in Chinese that directly tells the learner what the target verb is and what it means (e.g., "目标词是 close，意为关闭或停止营业"). This is meant to be a visible reference, not a hidden puzzle — be straightforward.
         """
 
         try:
@@ -213,20 +214,20 @@ class GeminiClient:
         # falls back to the generic template below.
         if verb == "afford":
             blanked = "I really can't ______ to buy such a high-end laptop."
-            chinese = f"【场景：{scenario}】请使用动词 '{verb}'（{definition}）来造句。比如你想说：我实在【{definition}】这么高端的笔记本电脑。{has_key_warning}"
+            chinese = f"【场景：{scenario}】我实在买不起这么高端的笔记本电脑，价格远超我的预算。{has_key_warning}"
             context = "I bought a new computer yesterday, but it is too expensive."
         elif verb == "borrow":
             blanked = "Can I ______ your umbrella for a second? It is pouring outside."
-            chinese = f"【场景：{scenario}】请使用动词 '{verb}'（{definition}）来造句。比如询问朋友：我能【{definition}】一下你的雨伞吗？外面在下大雨。{has_key_warning}"
+            chinese = f"【场景：{scenario}】我能借用一下你的雨伞吗？外面正在下大雨。{has_key_warning}"
             context = "It started raining suddenly after work."
         elif verb == "apologize":
             blanked = "You should ______ to your sister for breaking her favorite mug."
-            chinese = f"【场景：{scenario}】请使用动词 '{verb}'（{definition}）来造句。比如对朋友说：你应当为打破你妹妹最喜欢的马克杯而向她【{definition}】。{has_key_warning}"
+            chinese = f"【场景：{scenario}】你应当为打碎妹妹最喜欢的马克杯而向她道歉。{has_key_warning}"
             context = "My friend is arguing with his sister."
         else:
             # Generic template
             blanked = f"Please ______ this action carefully so we can proceed."
-            chinese = f"【场景：{scenario}】请用动词 '{verb}'（{definition}）来填空。英文意思是：请仔细【{definition}】这个步骤，以便我们继续。{has_key_warning}"
+            chinese = f"【场景：{scenario}】请仔细{definition}这个步骤，以便我们继续推进。{has_key_warning}"
             context = "We are going through the instructions step-by-step."
 
         return QuestionSchema(
@@ -234,7 +235,7 @@ class GeminiClient:
             english_context=context,
             blanked_sentence=blanked,
             correct_verbs=[verb],
-            clue=f"动词原形为 '{verb}'，中文意思是：{definition}。"
+            clue=f"目标动词是 '{verb}'，中文意思是：{definition}。请在英文填空处填入正确形式的动词。"
         )
 
     def _get_mock_evaluation(self, question_data: dict, user_answer: str, target_verb: str, error_msg: str = "") -> EvaluationSchema:
