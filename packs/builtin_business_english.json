@@ -1,0 +1,402 @@
+{
+  "pack_name": "builtin_business_english",
+  "display_name": "商务英语动词",
+  "description": "涵盖会议发言、商务谈判、邮件沟通、演讲汇报等职场场景的核心动词，适合有工作需求的英语学习者。",
+  "category": "商务英语",
+  "language": "en-zh",
+  "version": "1.0",
+  "author": "curated",
+  "difficulty_distribution": {
+    "B1": 21,
+    "B2": 36,
+    "C1": 17,
+    "A2": 3
+  },
+  "verbs": [
+    {
+      "verb": "discuss",
+      "difficulty": "B1",
+      "definition": "讨论，商议(某个话题或计划)"
+    },
+    {
+      "verb": "propose",
+      "difficulty": "B1",
+      "definition": "提议，建议(一个方案或想法)"
+    },
+    {
+      "verb": "negotiate",
+      "difficulty": "B2",
+      "definition": "谈判，协商(合同条款、条件)"
+    },
+    {
+      "verb": "present",
+      "difficulty": "B1",
+      "definition": "展示，演示(报告、产品)"
+    },
+    {
+      "verb": "communicate",
+      "difficulty": "B1",
+      "definition": "沟通，交流(信息、想法)"
+    },
+    {
+      "verb": "manage",
+      "difficulty": "B1",
+      "definition": "管理，经营(项目、团队、公司)"
+    },
+    {
+      "verb": "lead",
+      "difficulty": "B1",
+      "definition": "领导，带领(团队、项目)"
+    },
+    {
+      "verb": "delegate",
+      "difficulty": "B2",
+      "definition": "委派，授权(任务、职责)"
+    },
+    {
+      "verb": "coordinate",
+      "difficulty": "B2",
+      "definition": "协调，配合(活动、部门)"
+    },
+    {
+      "verb": "collaborate",
+      "difficulty": "B2",
+      "definition": "合作，协作(与他人或团队)"
+    },
+    {
+      "verb": "analyze",
+      "difficulty": "B2",
+      "definition": "分析，研究(数据、情况)"
+    },
+    {
+      "verb": "implement",
+      "difficulty": "B2",
+      "definition": "实施，执行(计划、策略)"
+    },
+    {
+      "verb": "develop",
+      "difficulty": "B1",
+      "definition": "开发，发展(产品、技能、市场)"
+    },
+    {
+      "verb": "evaluate",
+      "difficulty": "B2",
+      "definition": "评估，评价(绩效、项目)"
+    },
+    {
+      "verb": "strategize",
+      "difficulty": "C1",
+      "definition": "制定战略，谋划(长期计划)"
+    },
+    {
+      "verb": "motivate",
+      "difficulty": "B2",
+      "definition": "激励，激发(员工、团队)"
+    },
+    {
+      "verb": "facilitate",
+      "difficulty": "C1",
+      "definition": "促进，协助(会议、流程顺利进行)"
+    },
+    {
+      "verb": "chair",
+      "difficulty": "B2",
+      "definition": "主持(会议)"
+    },
+    {
+      "verb": "address",
+      "difficulty": "B2",
+      "definition": "处理，解决(问题)；发言，讲话(向听众)"
+    },
+    {
+      "verb": "outline",
+      "difficulty": "B2",
+      "definition": "概述，勾勒(计划、观点)"
+    },
+    {
+      "verb": "clarify",
+      "difficulty": "B1",
+      "definition": "澄清，阐明(问题、信息)"
+    },
+    {
+      "verb": "confirm",
+      "difficulty": "B1",
+      "definition": "确认，证实(信息、预约)"
+    },
+    {
+      "verb": "inform",
+      "difficulty": "B1",
+      "definition": "通知，告知(某人某事)"
+    },
+    {
+      "verb": "request",
+      "difficulty": "B1",
+      "definition": "请求，要求(帮助、信息)"
+    },
+    {
+      "verb": "review",
+      "difficulty": "B1",
+      "definition": "审查，回顾(文件、绩效)"
+    },
+    {
+      "verb": "approve",
+      "difficulty": "B1",
+      "definition": "批准，同意(计划、申请)"
+    },
+    {
+      "verb": "reject",
+      "difficulty": "B1",
+      "definition": "拒绝，不接受(提议、申请)"
+    },
+    {
+      "verb": "submit",
+      "difficulty": "B1",
+      "definition": "提交，呈递(报告、申请)"
+    },
+    {
+      "verb": "attach",
+      "difficulty": "A2",
+      "definition": "附加，附上(文件、附件)"
+    },
+    {
+      "verb": "forward",
+      "difficulty": "A2",
+      "definition": "转发(邮件、信息)"
+    },
+    {
+      "verb": "reply",
+      "difficulty": "A2",
+      "definition": "回复，答复(邮件、问题)"
+    },
+    {
+      "verb": "acknowledge",
+      "difficulty": "B2",
+      "definition": "确认收到，承认(错误、贡献)"
+    },
+    {
+      "verb": "update",
+      "difficulty": "B1",
+      "definition": "更新，告知最新情况(信息、系统)"
+    },
+    {
+      "verb": "monitor",
+      "difficulty": "B2",
+      "definition": "监控，监测(进度、表现)"
+    },
+    {
+      "verb": "prioritize",
+      "difficulty": "B2",
+      "definition": "优先处理，区分轻重缓急(任务)"
+    },
+    {
+      "verb": "allocate",
+      "difficulty": "B2",
+      "definition": "分配，分派(资源、任务)"
+    },
+    {
+      "verb": "assign",
+      "difficulty": "B1",
+      "definition": "指派，分配(任务、职责)"
+    },
+    {
+      "verb": "verify",
+      "difficulty": "B2",
+      "definition": "核实，查证(信息、身份)"
+    },
+    {
+      "verb": "validate",
+      "difficulty": "C1",
+      "definition": "验证，确认有效(数据、假设)"
+    },
+    {
+      "verb": "demonstrate",
+      "difficulty": "B2",
+      "definition": "演示，证明(产品功能、技能)"
+    },
+    {
+      "verb": "illustrate",
+      "difficulty": "B2",
+      "definition": "阐明，举例说明(观点、概念)"
+    },
+    {
+      "verb": "elaborate",
+      "difficulty": "C1",
+      "definition": "详细阐述，详尽说明(观点、细节)"
+    },
+    {
+      "verb": "convey",
+      "difficulty": "B2",
+      "definition": "传达，表达(信息、情感)"
+    },
+    {
+      "verb": "engage",
+      "difficulty": "B2",
+      "definition": "吸引，使参与(听众、员工)"
+    },
+    {
+      "verb": "summarize",
+      "difficulty": "B1",
+      "definition": "总结，概括(报告、讨论)"
+    },
+    {
+      "verb": "conclude",
+      "difficulty": "B1",
+      "definition": "结束，总结(会议、报告)"
+    },
+    {
+      "verb": "recommend",
+      "difficulty": "B1",
+      "definition": "推荐，建议(方案、产品)"
+    },
+    {
+      "verb": "advise",
+      "difficulty": "B1",
+      "definition": "建议，劝告(某人某事)"
+    },
+    {
+      "verb": "consult",
+      "difficulty": "B2",
+      "definition": "咨询，请教(专家、意见)"
+    },
+    {
+      "verb": "persuade",
+      "difficulty": "B2",
+      "definition": "说服，劝说(他人接受观点)"
+    },
+    {
+      "verb": "convince",
+      "difficulty": "B2",
+      "definition": "使相信，说服(某人相信某事)"
+    },
+    {
+      "verb": "influence",
+      "difficulty": "B2",
+      "definition": "影响，左右(决策、结果)"
+    },
+    {
+      "verb": "resolve",
+      "difficulty": "B2",
+      "definition": "解决，解除(冲突、问题)"
+    },
+    {
+      "verb": "mediate",
+      "difficulty": "C1",
+      "definition": "调解，斡旋(争端、纠纷)"
+    },
+    {
+      "verb": "compromise",
+      "difficulty": "B2",
+      "definition": "妥协，折中(达成一致)"
+    },
+    {
+      "verb": "concede",
+      "difficulty": "C1",
+      "definition": "让步，承认(失败、错误)"
+    },
+    {
+      "verb": "ratify",
+      "difficulty": "C1",
+      "definition": "批准，认可(协议、条约)"
+    },
+    {
+      "verb": "finalize",
+      "difficulty": "B2",
+      "definition": "敲定，最终确定(计划、合同)"
+    },
+    {
+      "verb": "oversee",
+      "difficulty": "C1",
+      "definition": "监督，监管(项目、部门)"
+    },
+    {
+      "verb": "supervise",
+      "difficulty": "B2",
+      "definition": "监督，管理(员工、工作)"
+    },
+    {
+      "verb": "mentor",
+      "difficulty": "C1",
+      "definition": "指导，辅导(新人、下属)"
+    },
+    {
+      "verb": "empower",
+      "difficulty": "C1",
+      "definition": "授权，赋能(员工、团队)"
+    },
+    {
+      "verb": "inspire",
+      "difficulty": "B2",
+      "definition": "激励，鼓舞(团队、创造力)"
+    },
+    {
+      "verb": "innovate",
+      "difficulty": "C1",
+      "definition": "创新，革新(产品、方法)"
+    },
+    {
+      "verb": "optimize",
+      "difficulty": "C1",
+      "definition": "优化，使完善(流程、效率)"
+    },
+    {
+      "verb": "streamline",
+      "difficulty": "C1",
+      "definition": "精简，使效率更高(流程、系统)"
+    },
+    {
+      "verb": "forecast",
+      "difficulty": "B2",
+      "definition": "预测，预报(销售、趋势)"
+    },
+    {
+      "verb": "project",
+      "difficulty": "B2",
+      "definition": "预测，估算(成本、需求)"
+    },
+    {
+      "verb": "budget",
+      "difficulty": "B2",
+      "definition": "做预算，规划开支(资金)"
+    },
+    {
+      "verb": "source",
+      "difficulty": "C1",
+      "definition": "采购，寻找供应商(原材料、服务)"
+    },
+    {
+      "verb": "procure",
+      "difficulty": "C1",
+      "definition": "采购，获得(物资、服务)"
+    },
+    {
+      "verb": "distribute",
+      "difficulty": "B2",
+      "definition": "分发，分销(产品、信息)"
+    },
+    {
+      "verb": "market",
+      "difficulty": "B2",
+      "definition": "营销，推销(产品、服务)"
+    },
+    {
+      "verb": "pitch",
+      "difficulty": "C1",
+      "definition": "推销，游说(想法、产品给投资者)"
+    },
+    {
+      "verb": "retain",
+      "difficulty": "B2",
+      "definition": "保留，维持(客户、员工)"
+    },
+    {
+      "verb": "acquire",
+      "difficulty": "B2",
+      "definition": "获得，收购(公司、技能)"
+    },
+    {
+      "verb": "merge",
+      "difficulty": "C1",
+      "definition": "合并，兼并(公司、部门)"
+    }
+  ]
+}

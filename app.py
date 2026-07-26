@@ -1,3 +1,4 @@
+import json
 import os
 import random
 from datetime import datetime
@@ -8,6 +9,7 @@ import streamlit as st
 # Import local modules
 import db_manager
 import llm_client
+import vocab_pack_manager
 from verbs_data import SCENARIOS_SEED
 
 DIFFICULTY_LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"]
@@ -48,8 +50,11 @@ st.session_state.setdefault("question_seq", 0)
 st.session_state.setdefault("user_submitted", False)
 st.session_state.setdefault("evaluation_result", None)
 st.session_state.setdefault("show_clue", False)
+st.session_state.setdefault("show_target_verb", False)
 st.session_state.setdefault("difficulty_filter", "All")
 st.session_state.setdefault("starred_filter", False)
+st.session_state.setdefault("pack_manager_selected_pack", None)
+st.session_state.setdefault("ai_generated_preview", None)
 
 
 def reset_question():
@@ -58,6 +63,7 @@ def reset_question():
     st.session_state.user_submitted = False
     st.session_state.evaluation_result = None
     st.session_state.show_clue = False
+    st.session_state.show_target_verb = False
 
 
 # =====================================================================
@@ -119,17 +125,26 @@ with st.sidebar:
         "3. 全键盘操作：输入答案后按 Enter 提交，看完解析再按一次 Enter 进入下一题。"
     )
 
+    st.divider()
+    st.subheader("词包状态", divider="gray")
+    enabled_cnt = db_manager.get_enabled_pack_count()
+    total_cnt = db_manager.get_total_pack_count()
+    st.caption(f"已启用 {enabled_cnt}/{total_cnt} 个词包")
+    if total_cnt > 0:
+        st.caption(f"词汇总量约 {db_manager.get_vocab_stats()['total_verbs']} 个")
+
 # =====================================================================
 # Main Header
 # =====================================================================
 st.title(":material/target: 英语动词智能训练营")
 st.caption("通过最真实的生活场景测试并追踪你的动词运用能力，不再死记硬背。")
 
-tab_practice, tab_notebook, tab_analytics, tab_settings = st.tabs([
+tab_practice, tab_notebook, tab_analytics, tab_settings, tab_packs = st.tabs([
     ":material/school: 智能训练",
     ":material/menu_book: 单词备忘录",
     ":material/insights: 学习进度洞察",
     ":material/settings: 设置中心",
+    ":material/package_2: 词汇包管理",
 ])
 
 # =====================================================================
@@ -304,15 +319,34 @@ with tab_practice:
 
             with st.container(border=True):
                 st.markdown("**当前测试词汇**")
-                st.markdown(f"- 目标动词：`{md_escape(st.session_state.current_verb)}`")
-                if verb_row:
-                    st.markdown(f"- 基本释义：{md_escape(verb_row['definition'])}")
-                    st.markdown(f"- 难度级别：{md_escape(verb_row['difficulty'])}")
-                    st.markdown(f"- 历史尝试次数：{verb_row['attempts']} 次")
-                    st.progress(
-                        verb_row["mastery_score"] / 100,
-                        text=f"熟练度 {verb_row['mastery_score']}/100",
-                    )
+
+                if st.session_state.show_target_verb:
+                    # Revealed state — full details
+                    st.markdown(f"- 目标动词：`{md_escape(st.session_state.current_verb)}`")
+                    if verb_row:
+                        st.markdown(f"- 基本释义：{md_escape(verb_row['definition'])}")
+                        st.markdown(f"- 难度级别：{md_escape(verb_row['difficulty'])}")
+                        st.markdown(f"- 历史尝试次数：{verb_row['attempts']} 次")
+                        st.progress(
+                            verb_row["mastery_score"] / 100,
+                            text=f"熟练度 {verb_row['mastery_score']}/100",
+                        )
+                    if st.button("🙈 隐藏目标词汇", width="stretch"):
+                        st.session_state.show_target_verb = False
+                        st.rerun()
+                else:
+                    # Hidden state — mask the answer, show only stats
+                    st.caption("🔒 目标词汇已隐藏")
+                    if verb_row:
+                        st.markdown(f"- 难度级别：{md_escape(verb_row['difficulty'])}")
+                        st.markdown(f"- 历史尝试次数：{verb_row['attempts']} 次")
+                        st.progress(
+                            verb_row["mastery_score"] / 100,
+                            text=f"熟练度 {verb_row['mastery_score']}/100",
+                        )
+                    if st.button("👁 显示目标词汇", width="stretch", type="primary"):
+                        st.session_state.show_target_verb = True
+                        st.rerun()
 
 # =====================================================================
 # TAB 2: VOCABULARY NOTEBOOK
@@ -324,7 +358,7 @@ with tab_notebook:
     list_col, add_col = st.columns([3, 1], gap="medium")
 
     with list_col:
-        sf1, sf2, sf3 = st.columns([2, 1, 1])
+        sf1, sf2, sf3, sf4 = st.columns([2, 1, 1, 1])
         with sf1:
             search_input = st.text_input("搜索单词或中文释义", placeholder="输入词汇或中文释义…")
         with sf2:
@@ -335,22 +369,40 @@ with tab_notebook:
                 options=["全部词汇", "仅显示收藏"],
                 key="notebook_star_filter",
             )
+        with sf4:
+            packs = db_manager.get_all_packs()
+            pack_options = ["全部词包"] + [f"{p['display_name']} ({p['verb_count']})" for p in packs]
+            pack_filter_ui = st.selectbox("按词包筛选", options=pack_options, key="notebook_pack_filter")
+
+        # Resolve pack filter selection
+        selected_pack_filter = None
+        if pack_filter_ui != "全部词包":
+            # Extract the pack_name from the selection string "display_name (count)"
+            selected_display = pack_filter_ui.rsplit(" (", 1)[0]
+            for p in packs:
+                if p["display_name"] == selected_display:
+                    selected_pack_filter = p["pack_name"]
+                    break
 
         verbs_list = db_manager.get_all_verbs(
             difficulty_filter=None if diff_filter_box == "All" else diff_filter_box,
             starred_only=star_filter_box == "仅显示收藏",
             search_query=search_input.strip() or None,
+            pack_filter=selected_pack_filter,
         )
 
         if not verbs_list:
             st.warning("没有找到匹配的动词，试试其他筛选条件吧。")
         else:
             df = pd.DataFrame(verbs_list)
+            # Map source_pack to display_name
+            pack_name_to_display = {p["pack_name"]: p["display_name"] for p in packs}
             display_df = pd.DataFrame({
                 "收藏": df["starred"] == 1,
                 "单词": df["verb"],
                 "难度": df["difficulty"],
                 "中文释义": df["definition"],
+                "来源词包": df["source_pack"].map(pack_name_to_display).fillna("自定义/原始"),
                 "尝试次数": df["attempts"],
                 "正确率": (df["correct_attempts"] / df["attempts"].where(df["attempts"] > 0)).fillna(0),
                 "熟练度": df["mastery_score"],
@@ -384,6 +436,17 @@ with tab_notebook:
                         st.rerun()
             else:
                 st.caption("提示：点选表格中的一行即可快速切换该词的收藏状态。")
+
+            # Export button for filtered results
+            if verbs_list:
+                csv_data = vocab_pack_manager.verbs_to_csv_string(verbs_list, include_progress=True)
+                st.download_button(
+                    "导出当前筛选结果为 CSV",
+                    data=csv_data,
+                    file_name="vocabulary_export.csv",
+                    mime="text/csv",
+                    icon=":material/download:",
+                )
 
     with add_col:
         st.markdown("**添加新动词**")
@@ -529,3 +592,354 @@ with tab_settings:
             reset_question()
             st.success("数据重置成功，你现在是一个初学者啦！")
             st.rerun()
+
+# =====================================================================
+# TAB 5: VOCABULARY PACK MANAGER
+# =====================================================================
+with tab_packs:
+    st.subheader("词汇包管理")
+    st.caption("启用或禁用内置词包、从文件导入词汇、或使用 AI 智能生成个性化词包。")
+
+    # Refresh pack list
+    all_packs = db_manager.get_all_packs()
+    pack_name_to_display = {p["pack_name"]: p["display_name"] for p in all_packs}
+
+    # ---- Pack Overview Cards ----
+    st.markdown("**已安装的词包**")
+    if not all_packs:
+        st.info("尚无任何词包。请从下方导入或生成词包。")
+    else:
+        cols_per_row = 3
+        for i in range(0, len(all_packs), cols_per_row):
+            row_packs = all_packs[i : i + cols_per_row]
+            card_cols = st.columns(cols_per_row, gap="medium")
+            for j, pack in enumerate(row_packs):
+                with card_cols[j]:
+                    with st.container(border=True):
+                        # Header row: name + tags
+                        tag = ""
+                        if pack["is_builtin"]:
+                            tag = "内置"
+                        elif pack["is_ai_generated"]:
+                            tag = "AI 生成"
+                        else:
+                            tag = "自定义"
+
+                        st.markdown(f"**{pack['display_name']}**  `{tag}`")
+                        st.caption(pack.get("description", "")[:80] + "…" if len(pack.get("description", "")) > 80 else pack.get("description", ""))
+
+                        st.markdown(f"分类: **{pack.get('category', '未分类')}**  |  {pack['verb_count']} 个动词")
+
+                        # Enable/disable toggle
+                        enabled = pack["is_enabled"] == 1
+                        toggle_label = "已启用" if enabled else "已禁用"
+                        if st.button(
+                            toggle_label,
+                            key=f"toggle_pack_{pack['pack_name']}",
+                            icon=":material/toggle_on:" if enabled else ":material/toggle_off:",
+                            width="stretch",
+                        ):
+                            db_manager.enable_pack(pack["pack_name"], not enabled)
+                            st.rerun()
+
+                        # Select for detail view
+                        if st.button(
+                            "查看详情",
+                            key=f"detail_pack_{pack['pack_name']}",
+                            icon=":material/info:",
+                            width="stretch",
+                        ):
+                            st.session_state.pack_manager_selected_pack = pack["pack_name"]
+                            st.rerun()
+
+    # ---- Pack Detail (expanded when a pack is selected) ----
+    selected_pack_name = st.session_state.pack_manager_selected_pack
+    if selected_pack_name:
+        selected_pack = next((p for p in all_packs if p["pack_name"] == selected_pack_name), None)
+        if selected_pack:
+            st.divider()
+            st.markdown(f"### 词包详情: {selected_pack['display_name']}")
+
+            detail_c1, detail_c2 = st.columns([2, 1], gap="medium")
+            with detail_c1:
+                st.markdown(f"**描述:** {selected_pack['description']}")
+                st.markdown(f"**分类:** {selected_pack['category']}  |  **版本:** {selected_pack['version']}  |  **动词数:** {selected_pack['verb_count']}")
+
+                # Verbs in this pack
+                pack_verbs = db_manager.get_all_verbs(pack_filter=selected_pack_name)
+                if pack_verbs:
+                    pack_df = pd.DataFrame(pack_verbs)
+                    st.dataframe(
+                        pack_df[["verb", "difficulty", "definition"]],
+                        hide_index=True,
+                        height=300,
+                        use_container_width=True,
+                    )
+
+            with detail_c2:
+                # Export this pack
+                pack_dict = db_manager.export_pack_to_dict(selected_pack_name)
+                if pack_dict:
+                    json_str = vocab_pack_manager.verbs_to_pack_json(
+                        verbs=pack_dict["verbs"],
+                        pack_name=pack_dict["pack_name"],
+                        display_name=pack_dict["display_name"],
+                        description=pack_dict["description"],
+                        category=pack_dict["category"],
+                    )
+                    st.download_button(
+                        "导出词包为 JSON",
+                        data=json_str,
+                        file_name=f"{selected_pack_name}.json",
+                        mime="application/json",
+                        icon=":material/download:",
+                        width="stretch",
+                    )
+                    csv_str = vocab_pack_manager.verbs_to_csv_string(pack_dict["verbs"])
+                    st.download_button(
+                        "导出词包为 CSV",
+                        data=csv_str,
+                        file_name=f"{selected_pack_name}.csv",
+                        mime="text/csv",
+                        icon=":material/download:",
+                        width="stretch",
+                    )
+
+                # Delete non-builtin pack
+                if not selected_pack["is_builtin"]:
+                    st.markdown("---")
+                    if st.button(
+                        "删除此词包 (不可恢复)",
+                        icon=":material/delete:",
+                        width="stretch",
+                        type="secondary",
+                    ):
+                        db_manager.delete_pack(selected_pack_name)
+                        # Also delete the file
+                        filename = selected_pack_name + ".json"
+                        vocab_pack_manager.delete_pack_file(filename)
+                        st.session_state.pack_manager_selected_pack = None
+                        st.success(f"词包 '{selected_pack['display_name']}' 已删除。")
+                        st.rerun()
+
+            if st.button("收起详情", icon=":material/collapse_content:", width="stretch"):
+                st.session_state.pack_manager_selected_pack = None
+                st.rerun()
+
+    # ---- Import / AI Generate Section ----
+    st.divider()
+    st.markdown("### 导入或生成词包")
+
+    import_col, ai_col = st.columns(2, gap="large")
+
+    with import_col:
+        st.markdown("**从文件导入**")
+        st.caption("支持 CSV / Excel / JSON 格式的词汇文件导入。")
+
+        uploaded_file = st.file_uploader(
+            "选择文件 (CSV / JSON / Excel)",
+            type=["csv", "json", "xlsx"],
+            key="pack_file_uploader",
+            label_visibility="collapsed",
+        )
+
+        with st.form("import_pack_form", clear_on_submit=True):
+            pack_name_input = st.text_input("词包名称", placeholder="e.g. 我的自定义词包")
+            pack_cat_input = st.text_input("分类标签", placeholder="e.g. 日常口语 / 专业术语")
+            import_submitted = st.form_submit_button(
+                "导入词包", icon=":material/upload:", width="stretch"
+            )
+
+        if import_submitted and uploaded_file is not None:
+            if not pack_name_input.strip():
+                st.error("请输入词包名称。")
+            else:
+                file_bytes = uploaded_file.read()
+                filename = uploaded_file.name.lower()
+
+                if filename.endswith(".json"):
+                    # JSON pack import
+                    try:
+                        data = json.loads(file_bytes.decode("utf-8"))
+                        ok, errors = vocab_pack_manager.validate_pack_structure(data)
+                        if not ok:
+                            st.error(f"JSON 格式错误: {'; '.join(errors)}")
+                        else:
+                            pack_name = data.get("pack_name", pack_name_input.strip())
+                            display_name = data.get("display_name", pack_name_input.strip())
+                            desc = data.get("description", "")
+                            category = data.get("category", pack_cat_input.strip() or "自定义")
+
+                            db_manager.register_pack(pack_name, display_name, desc, category, "1.0")
+                            imported, skipped = db_manager.import_pack_verbs(pack_name, data["verbs"])
+                            save_path = vocab_pack_manager.save_pack_to_file(data, f"{pack_name}.json")
+                            st.success(f"导入完成：新增 {imported} 个动词，跳过 {skipped} 个已存在的动词。")
+                            st.rerun()
+                    except json.JSONDecodeError as e:
+                        st.error(f"无法解析 JSON 文件: {e}")
+                elif filename.endswith(".xlsx"):
+                    # XLSX / Excel import
+                    pack_name = pack_name_input.strip().replace(" ", "_").lower() or "imported_vocabulary"
+                    verbs, errors = vocab_pack_manager.parse_xlsx_verb_file(file_bytes)
+                    if errors:
+                        for err in errors[:5]:
+                            st.warning(err)
+                        if len(errors) > 5:
+                            st.warning(f"…还有 {len(errors) - 5} 个错误未显示。")
+
+                    if not verbs:
+                        st.error("没有有效的动词数据可导入。")
+                    else:
+                        display_name = pack_name_input.strip() or "导入的词汇表"
+                        category = pack_cat_input.strip() or "自定义"
+                        pack_data = {
+                            "pack_name": pack_name,
+                            "display_name": display_name,
+                            "description": f"从 Excel 文件导入的自定义词包 ({category})。",
+                            "category": category,
+                            "language": "en-zh",
+                            "version": "1.0",
+                            "author": "user",
+                            "verbs": verbs,
+                        }
+                        save_path = vocab_pack_manager.save_pack_to_file(pack_data, f"{pack_name}.json")
+                        db_manager.register_pack(pack_name, display_name, pack_data["description"], category, "1.0")
+                        imported, skipped = db_manager.import_pack_verbs(pack_name, verbs)
+                        st.success(f"导入完成：新增 {imported} 个动词，跳过 {skipped} 个已存在的动词。")
+                        st.rerun()
+                else:
+                    # CSV import
+                    pack_name = pack_name_input.strip().replace(" ", "_").lower()
+                    verbs, errors = vocab_pack_manager.parse_csv_verb_file(file_bytes)
+                    if errors:
+                        for err in errors[:5]:
+                            st.warning(err)
+                        if len(errors) > 5:
+                            st.warning(f"…还有 {len(errors) - 5} 个错误未显示。")
+
+                    if not verbs:
+                        st.error("没有有效的动词数据可导入。")
+                    else:
+                        display_name = pack_name_input.strip() or "自定义词包"
+                        category = pack_cat_input.strip() or "自定义"
+                        pack_data = {
+                            "pack_name": pack_name,
+                            "display_name": display_name,
+                            "description": f"从文件导入的自定义词包 ({category})。",
+                            "category": category,
+                            "language": "en-zh",
+                            "version": "1.0",
+                            "author": "user",
+                            "verbs": verbs,
+                        }
+                        save_path = vocab_pack_manager.save_pack_to_file(pack_data, f"{pack_name}.json")
+                        db_manager.register_pack(pack_name, display_name, pack_data["description"], category, "1.0")
+                        imported, skipped = db_manager.import_pack_verbs(pack_name, verbs)
+                        st.success(f"导入完成：新增 {imported} 个动词，跳过 {skipped} 个已存在的动词。")
+                        st.rerun()
+
+    with ai_col:
+        st.markdown("**AI 智能生成词包**")
+        st.caption("输入一个主题，让 Gemini AI 自动为你生成分类词汇包。")
+
+        with st.form("ai_generate_pack_form", clear_on_submit=False):
+            ai_topic = st.text_input(
+                "主题关键词",
+                placeholder="e.g. 雅思写作高频动词 / 医疗英语 / 科技面试",
+            )
+            ai_count = st.slider("目标动词数量", min_value=30, max_value=200, value=80, step=10)
+            ai_difficulties = st.multiselect(
+                "参考难度等级（可多选，不选则自动分布）",
+                options=DIFFICULTY_LEVELS,
+                default=["B1", "B2"],
+            )
+            ai_submitted = st.form_submit_button(
+                "AI 生成词包",
+                icon=":material/auto_awesome:",
+                width="stretch",
+                disabled=not client.is_configured(),
+                help="需要配置 Gemini API Key" if not client.is_configured() else "使用 Gemini AI 生成词包",
+            )
+
+        if ai_submitted and ai_topic.strip():
+            with st.spinner(f"正在调用 Gemini 生成 '{ai_topic}' 词包（约需 10-30 秒）…"):
+                result = vocab_pack_manager.generate_pack_with_ai(
+                    client=client,
+                    topic=ai_topic.strip(),
+                    count=ai_count,
+                    difficulty_prefs=ai_difficulties if ai_difficulties else None,
+                )
+            if result is None:
+                st.error("AI 生成失败，请检查 API Key 或稍后重试。")
+            else:
+                st.session_state.ai_generated_preview = result
+                st.rerun()
+
+        # Show AI preview if available
+        ai_preview = st.session_state.ai_generated_preview
+        if ai_preview:
+            verbs_preview = ai_preview.get("verbs", [])
+            st.success(f"AI 已生成 {len(verbs_preview)} 个动词")
+            st.markdown(f"**词包名称:** {ai_preview['display_name']}")
+            st.markdown(f"**描述:** {ai_preview['description']}")
+            preview_df = pd.DataFrame(verbs_preview)
+            st.dataframe(
+                preview_df[["verb", "difficulty", "definition"]],
+                hide_index=True,
+                height=200,
+                use_container_width=True,
+            )
+
+            preview_c1, preview_c2 = st.columns(2)
+            with preview_c1:
+                if st.button("确认保存词包", icon=":material/save:", width="stretch", type="primary"):
+                    pack_name = ai_preview["pack_name"]
+                    save_path = vocab_pack_manager.save_pack_to_file(ai_preview, f"{pack_name}.json")
+                    db_manager.register_pack(
+                        pack_name,
+                        ai_preview["display_name"],
+                        ai_preview["description"],
+                        ai_preview.get("category", "AI 生成"),
+                        ai_preview.get("version", "1.0"),
+                        is_ai_generated=True,
+                    )
+                    imported, skipped = db_manager.import_pack_verbs(pack_name, verbs_preview)
+                    st.session_state.ai_generated_preview = None
+                    st.success(f"词包 '{ai_preview['display_name']}' 已保存！新增 {imported} 个动词。")
+                    st.rerun()
+            with preview_c2:
+                if st.button("放弃并重试", icon=":material/refresh:", width="stretch"):
+                    st.session_state.ai_generated_preview = None
+                    st.rerun()
+
+    # ---- Export All Section ----
+    st.divider()
+    st.markdown("### 全局导出")
+    export_c1, export_c2 = st.columns(2)
+    with export_c1:
+        all_verbs = db_manager.export_all_verbs_to_dict()
+        csv_all = vocab_pack_manager.verbs_to_csv_string(all_verbs, include_progress=True)
+        st.download_button(
+            "导出全部词汇为 CSV (含进度)",
+            data=csv_all,
+            file_name=f"all_vocabulary_{datetime.now().strftime('%Y%m%d')}.csv",
+            mime="text/csv",
+            icon=":material/download:",
+            width="stretch",
+        )
+    with export_c2:
+        json_all = vocab_pack_manager.verbs_to_pack_json(
+            verbs=all_verbs,
+            pack_name="full_export",
+            display_name="全部词汇导出",
+            description="从个人单词库导出的完整词汇集合，含所有已启用词包的动词。",
+            category="export",
+        )
+        st.download_button(
+            "导出全部词汇为 JSON",
+            data=json_all,
+            file_name=f"all_vocabulary_{datetime.now().strftime('%Y%m%d')}.json",
+            mime="application/json",
+            icon=":material/download:",
+            width="stretch",
+        )

@@ -1,0 +1,492 @@
+{
+  "pack_name": "builtin_toefl_essential",
+  "display_name": "托福必考动词",
+  "description": "TOEFL iBT 考试核心动词合集，覆盖校园对话、学术讲座和阅读文章的常见动作词汇，助力听说读写全面提升。",
+  "category": "TOEFL",
+  "language": "en-zh",
+  "version": "1.0",
+  "author": "curated",
+  "difficulty_distribution": {
+    "B1": 47,
+    "B2": 35,
+    "C1": 8,
+    "A2": 5
+  },
+  "verbs": [
+    {
+      "verb": "acquire",
+      "difficulty": "B1",
+      "definition": "获得，取得(知识、技能)"
+    },
+    {
+      "verb": "adapt",
+      "difficulty": "B1",
+      "definition": "适应；改编"
+    },
+    {
+      "verb": "advocate",
+      "difficulty": "B2",
+      "definition": "倡导；拥护"
+    },
+    {
+      "verb": "affect",
+      "difficulty": "B1",
+      "definition": "影响；感动"
+    },
+    {
+      "verb": "alter",
+      "difficulty": "B1",
+      "definition": "改变，更改"
+    },
+    {
+      "verb": "analyze",
+      "difficulty": "B1",
+      "definition": "分析"
+    },
+    {
+      "verb": "anticipate",
+      "difficulty": "B2",
+      "definition": "预期，预料"
+    },
+    {
+      "verb": "apply",
+      "difficulty": "B1",
+      "definition": "应用；申请"
+    },
+    {
+      "verb": "approach",
+      "difficulty": "B1",
+      "definition": "接近；处理(问题)"
+    },
+    {
+      "verb": "argue",
+      "difficulty": "B1",
+      "definition": "争论；论证"
+    },
+    {
+      "verb": "articulate",
+      "difficulty": "C1",
+      "definition": "清楚地表达；发音"
+    },
+    {
+      "verb": "assess",
+      "difficulty": "B2",
+      "definition": "评估，评定"
+    },
+    {
+      "verb": "assume",
+      "difficulty": "B1",
+      "definition": "假定；承担"
+    },
+    {
+      "verb": "attribute",
+      "difficulty": "B2",
+      "definition": "归因于"
+    },
+    {
+      "verb": "avoid",
+      "difficulty": "A2",
+      "definition": "避免"
+    },
+    {
+      "verb": "benefit",
+      "difficulty": "B1",
+      "definition": "受益；有益于"
+    },
+    {
+      "verb": "categorize",
+      "difficulty": "B2",
+      "definition": "分类，归类"
+    },
+    {
+      "verb": "cause",
+      "difficulty": "A2",
+      "definition": "引起，导致"
+    },
+    {
+      "verb": "challenge",
+      "difficulty": "B1",
+      "definition": "挑战；质疑"
+    },
+    {
+      "verb": "characterize",
+      "difficulty": "B2",
+      "definition": "描绘...的特征"
+    },
+    {
+      "verb": "cite",
+      "difficulty": "B2",
+      "definition": "引用；提及"
+    },
+    {
+      "verb": "claim",
+      "difficulty": "B1",
+      "definition": "声称；主张"
+    },
+    {
+      "verb": "clarify",
+      "difficulty": "B2",
+      "definition": "澄清，阐明"
+    },
+    {
+      "verb": "compare",
+      "difficulty": "B1",
+      "definition": "比较"
+    },
+    {
+      "verb": "comprise",
+      "difficulty": "B2",
+      "definition": "包含；构成"
+    },
+    {
+      "verb": "concentrate",
+      "difficulty": "B1",
+      "definition": "集中；专心"
+    },
+    {
+      "verb": "conclude",
+      "difficulty": "B1",
+      "definition": "总结；断定"
+    },
+    {
+      "verb": "conduct",
+      "difficulty": "B1",
+      "definition": "进行(实验、调查)；引导"
+    },
+    {
+      "verb": "confirm",
+      "difficulty": "B1",
+      "definition": "确认，证实"
+    },
+    {
+      "verb": "conjecture",
+      "difficulty": "C1",
+      "definition": "推测，猜测"
+    },
+    {
+      "verb": "conserve",
+      "difficulty": "B2",
+      "definition": "保护，保存"
+    },
+    {
+      "verb": "constitute",
+      "difficulty": "B2",
+      "definition": "构成，组成"
+    },
+    {
+      "verb": "consume",
+      "difficulty": "B1",
+      "definition": "消费；消耗"
+    },
+    {
+      "verb": "contribute",
+      "difficulty": "B1",
+      "definition": "贡献；促成"
+    },
+    {
+      "verb": "convert",
+      "difficulty": "B2",
+      "definition": "转换，转化"
+    },
+    {
+      "verb": "cope",
+      "difficulty": "B2",
+      "definition": "应付，处理"
+    },
+    {
+      "verb": "correlate",
+      "difficulty": "C1",
+      "definition": "相关联，有关系"
+    },
+    {
+      "verb": "create",
+      "difficulty": "A2",
+      "definition": "创造，创建"
+    },
+    {
+      "verb": "decline",
+      "difficulty": "B1",
+      "definition": "下降；拒绝"
+    },
+    {
+      "verb": "deduce",
+      "difficulty": "C1",
+      "definition": "推断，演绎"
+    },
+    {
+      "verb": "define",
+      "difficulty": "B1",
+      "definition": "定义；界定"
+    },
+    {
+      "verb": "demonstrate",
+      "difficulty": "B1",
+      "definition": "证明；演示"
+    },
+    {
+      "verb": "depict",
+      "difficulty": "B2",
+      "definition": "描绘，描述"
+    },
+    {
+      "verb": "derive",
+      "difficulty": "B2",
+      "definition": "源于；获得"
+    },
+    {
+      "verb": "design",
+      "difficulty": "A2",
+      "definition": "设计"
+    },
+    {
+      "verb": "determine",
+      "difficulty": "B1",
+      "definition": "决定；查明"
+    },
+    {
+      "verb": "develop",
+      "difficulty": "A2",
+      "definition": "发展；开发"
+    },
+    {
+      "verb": "differentiate",
+      "difficulty": "C1",
+      "definition": "区分，辨别(强调差异)"
+    },
+    {
+      "verb": "differ",
+      "difficulty": "B1",
+      "definition": "不同，有区别"
+    },
+    {
+      "verb": "diminish",
+      "difficulty": "B2",
+      "definition": "减少，减弱"
+    },
+    {
+      "verb": "distinguish",
+      "difficulty": "B1",
+      "definition": "区分，辨别"
+    },
+    {
+      "verb": "distribute",
+      "difficulty": "B1",
+      "definition": "分发；分配"
+    },
+    {
+      "verb": "dominate",
+      "difficulty": "B2",
+      "definition": "支配；主导"
+    },
+    {
+      "verb": "elucidate",
+      "difficulty": "C1",
+      "definition": "阐明，说明"
+    },
+    {
+      "verb": "emphasize",
+      "difficulty": "B1",
+      "definition": "强调"
+    },
+    {
+      "verb": "enable",
+      "difficulty": "B1",
+      "definition": "使能够"
+    },
+    {
+      "verb": "enhance",
+      "difficulty": "B2",
+      "definition": "提升，增强"
+    },
+    {
+      "verb": "establish",
+      "difficulty": "B1",
+      "definition": "建立；确定"
+    },
+    {
+      "verb": "evaluate",
+      "difficulty": "B2",
+      "definition": "评估，评价"
+    },
+    {
+      "verb": "evolve",
+      "difficulty": "B2",
+      "definition": "进化；发展"
+    },
+    {
+      "verb": "exaggerate",
+      "difficulty": "B2",
+      "definition": "夸大，言过其实"
+    },
+    {
+      "verb": "examine",
+      "difficulty": "B1",
+      "definition": "检查；审查"
+    },
+    {
+      "verb": "exceed",
+      "difficulty": "B2",
+      "definition": "超出，超过"
+    },
+    {
+      "verb": "exhibit",
+      "difficulty": "B1",
+      "definition": "展示，表现"
+    },
+    {
+      "verb": "expand",
+      "difficulty": "B1",
+      "definition": "扩大，膨胀"
+    },
+    {
+      "verb": "exploit",
+      "difficulty": "B2",
+      "definition": "利用；剥削"
+    },
+    {
+      "verb": "explore",
+      "difficulty": "B1",
+      "definition": "探索；研究"
+    },
+    {
+      "verb": "expose",
+      "difficulty": "B1",
+      "definition": "暴露；揭露"
+    },
+    {
+      "verb": "facilitate",
+      "difficulty": "B2",
+      "definition": "促进，使便利"
+    },
+    {
+      "verb": "fluctuate",
+      "difficulty": "B2",
+      "definition": "波动，起伏"
+    },
+    {
+      "verb": "formulate",
+      "difficulty": "C1",
+      "definition": "阐明；规划"
+    },
+    {
+      "verb": "generate",
+      "difficulty": "B1",
+      "definition": "产生，发生"
+    },
+    {
+      "verb": "hinder",
+      "difficulty": "B2",
+      "definition": "阻碍，妨碍"
+    },
+    {
+      "verb": "hypothesize",
+      "difficulty": "C1",
+      "definition": "假设，假定"
+    },
+    {
+      "verb": "identify",
+      "difficulty": "B1",
+      "definition": "识别；认同"
+    },
+    {
+      "verb": "illustrate",
+      "difficulty": "B1",
+      "definition": "说明；阐明"
+    },
+    {
+      "verb": "implement",
+      "difficulty": "B2",
+      "definition": "实施，执行"
+    },
+    {
+      "verb": "imply",
+      "difficulty": "B1",
+      "definition": "暗示，意味"
+    },
+    {
+      "verb": "indicate",
+      "difficulty": "B1",
+      "definition": "指示；表明"
+    },
+    {
+      "verb": "infer",
+      "difficulty": "B2",
+      "definition": "推断，推论"
+    },
+    {
+      "verb": "influence",
+      "difficulty": "B1",
+      "definition": "影响"
+    },
+    {
+      "verb": "interpret",
+      "difficulty": "B1",
+      "definition": "解释，阐释"
+    },
+    {
+      "verb": "intervene",
+      "difficulty": "B2",
+      "definition": "干预，介入"
+    },
+    {
+      "verb": "investigate",
+      "difficulty": "B1",
+      "definition": "调查，研究"
+    },
+    {
+      "verb": "justify",
+      "difficulty": "B2",
+      "definition": "证明...是正当的"
+    },
+    {
+      "verb": "maintain",
+      "difficulty": "B1",
+      "definition": "保持；维持"
+    },
+    {
+      "verb": "manipulate",
+      "difficulty": "B2",
+      "definition": "操纵；处理"
+    },
+    {
+      "verb": "measure",
+      "difficulty": "B1",
+      "definition": "测量；衡量"
+    },
+    {
+      "verb": "mitigate",
+      "difficulty": "B2",
+      "definition": "减轻，缓和"
+    },
+    {
+      "verb": "modify",
+      "difficulty": "B1",
+      "definition": "修改，更改"
+    },
+    {
+      "verb": "monitor",
+      "difficulty": "B2",
+      "definition": "监测，监控"
+    },
+    {
+      "verb": "observe",
+      "difficulty": "B1",
+      "definition": "观察；遵守"
+    },
+    {
+      "verb": "obtain",
+      "difficulty": "B1",
+      "definition": "获得，取得"
+    },
+    {
+      "verb": "perceive",
+      "difficulty": "B2",
+      "definition": "感知；察觉"
+    },
+    {
+      "verb": "persist",
+      "difficulty": "B2",
+      "definition": "坚持；持续"
+    }
+  ]
+}

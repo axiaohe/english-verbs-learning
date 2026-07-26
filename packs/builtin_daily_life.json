@@ -1,0 +1,392 @@
+{
+  "pack_name": "builtin_daily_life",
+  "display_name": "日常生活动词",
+  "description": "覆盖购物、烹饪、旅行、社交、家务、兴趣爱好、医疗健康等日常场景的实用动词，让你在国外生活轻松应对。",
+  "category": "日常生活",
+  "language": "en-zh",
+  "version": "1.0",
+  "author": "curated",
+  "difficulty_distribution": {
+    "B1": 35,
+    "A2": 24,
+    "B2": 5,
+    "A1": 11
+  },
+  "verbs": [
+    {
+      "verb": "purchase",
+      "difficulty": "B1",
+      "definition": "购买，采购(比buy更正式)"
+    },
+    {
+      "verb": "pay",
+      "difficulty": "A2",
+      "definition": "支付，付款"
+    },
+    {
+      "verb": "choose",
+      "difficulty": "A2",
+      "definition": "选择，挑选(商品、选项)"
+    },
+    {
+      "verb": "try on",
+      "difficulty": "B1",
+      "definition": "试穿(衣服)"
+    },
+    {
+      "verb": "return",
+      "difficulty": "B1",
+      "definition": "退货，归还(商品)"
+    },
+    {
+      "verb": "exchange",
+      "difficulty": "B1",
+      "definition": "调换，兑换(商品)"
+    },
+    {
+      "verb": "bargain",
+      "difficulty": "B1",
+      "definition": "讨价还价"
+    },
+    {
+      "verb": "browse",
+      "difficulty": "B2",
+      "definition": "浏览，随便看看(商店、网页)"
+    },
+    {
+      "verb": "order",
+      "difficulty": "A2",
+      "definition": "订购，点餐(商品、食物)"
+    },
+    {
+      "verb": "afford",
+      "difficulty": "B1",
+      "definition": "买得起，负担得起"
+    },
+    {
+      "verb": "cook",
+      "difficulty": "A2",
+      "definition": "烹饪，煮饭"
+    },
+    {
+      "verb": "bake",
+      "difficulty": "B1",
+      "definition": "烘焙，烤(面包、蛋糕)"
+    },
+    {
+      "verb": "fry",
+      "difficulty": "B1",
+      "definition": "油炸，煎"
+    },
+    {
+      "verb": "boil",
+      "difficulty": "B1",
+      "definition": "煮沸，烧开(水、食物)"
+    },
+    {
+      "verb": "chop",
+      "difficulty": "B1",
+      "definition": "剁碎，切(食物)"
+    },
+    {
+      "verb": "mix",
+      "difficulty": "A2",
+      "definition": "混合，搅拌(食材)"
+    },
+    {
+      "verb": "stir",
+      "difficulty": "B1",
+      "definition": "搅拌，搅动(液体、食物)"
+    },
+    {
+      "verb": "peel",
+      "difficulty": "B1",
+      "definition": "削皮，剥皮(水果、蔬菜)"
+    },
+    {
+      "verb": "prepare",
+      "difficulty": "A2",
+      "definition": "准备(食材、饭菜)"
+    },
+    {
+      "verb": "season",
+      "difficulty": "B2",
+      "definition": "给…调味，加调料"
+    },
+    {
+      "verb": "book",
+      "difficulty": "A2",
+      "definition": "预订(酒店、机票、餐桌)"
+    },
+    {
+      "verb": "pack",
+      "difficulty": "A2",
+      "definition": "打包，收拾行李"
+    },
+    {
+      "verb": "check in",
+      "difficulty": "B1",
+      "definition": "办理入住/登机手续"
+    },
+    {
+      "verb": "check out",
+      "difficulty": "B1",
+      "definition": "办理退房手续"
+    },
+    {
+      "verb": "explore",
+      "difficulty": "B1",
+      "definition": "探索，游览(新地方)"
+    },
+    {
+      "verb": "visit",
+      "difficulty": "A2",
+      "definition": "参观，拜访(景点、朋友)"
+    },
+    {
+      "verb": "rent",
+      "difficulty": "A2",
+      "definition": "租用，租赁(汽车、公寓)"
+    },
+    {
+      "verb": "travel",
+      "difficulty": "A2",
+      "definition": "旅行，旅游"
+    },
+    {
+      "verb": "arrive",
+      "difficulty": "A2",
+      "definition": "到达，抵达"
+    },
+    {
+      "verb": "depart",
+      "difficulty": "B1",
+      "definition": "出发，离开"
+    },
+    {
+      "verb": "meet",
+      "difficulty": "A1",
+      "definition": "见面，会面(与人)"
+    },
+    {
+      "verb": "chat",
+      "difficulty": "A2",
+      "definition": "聊天，闲谈"
+    },
+    {
+      "verb": "invite",
+      "difficulty": "A2",
+      "definition": "邀请(参加活动)"
+    },
+    {
+      "verb": "attend",
+      "difficulty": "B1",
+      "definition": "参加，出席(会议、聚会)"
+    },
+    {
+      "verb": "share",
+      "difficulty": "A2",
+      "definition": "分享，分担(信息、食物)"
+    },
+    {
+      "verb": "discuss",
+      "difficulty": "B1",
+      "definition": "讨论，商议"
+    },
+    {
+      "verb": "celebrate",
+      "difficulty": "B1",
+      "definition": "庆祝(节日、生日)"
+    },
+    {
+      "verb": "greet",
+      "difficulty": "A2",
+      "definition": "问候，打招呼"
+    },
+    {
+      "verb": "apologize",
+      "difficulty": "B1",
+      "definition": "道歉"
+    },
+    {
+      "verb": "recommend",
+      "difficulty": "B1",
+      "definition": "推荐(餐馆、书籍)"
+    },
+    {
+      "verb": "clean",
+      "difficulty": "A1",
+      "definition": "清洁，打扫(房间)"
+    },
+    {
+      "verb": "tidy up",
+      "difficulty": "B1",
+      "definition": "整理，收拾整齐(房间、物品)"
+    },
+    {
+      "verb": "wash",
+      "difficulty": "A1",
+      "definition": "洗涤(衣服、餐具)"
+    },
+    {
+      "verb": "iron",
+      "difficulty": "B1",
+      "definition": "熨烫(衣服)"
+    },
+    {
+      "verb": "fold",
+      "difficulty": "B1",
+      "definition": "折叠(衣服、被子)"
+    },
+    {
+      "verb": "vacuum",
+      "difficulty": "B1",
+      "definition": "用吸尘器清扫(地毯、地板)"
+    },
+    {
+      "verb": "dust",
+      "difficulty": "B1",
+      "definition": "掸灰，除尘(家具)"
+    },
+    {
+      "verb": "organize",
+      "difficulty": "B1",
+      "definition": "整理，组织(物品、活动)"
+    },
+    {
+      "verb": "repair",
+      "difficulty": "B1",
+      "definition": "修理，修补(坏了的东西)"
+    },
+    {
+      "verb": "water",
+      "difficulty": "A2",
+      "definition": "浇水(植物)"
+    },
+    {
+      "verb": "read",
+      "difficulty": "A1",
+      "definition": "阅读(书籍、文章)"
+    },
+    {
+      "verb": "write",
+      "difficulty": "A1",
+      "definition": "写，创作(故事、邮件)"
+    },
+    {
+      "verb": "paint",
+      "difficulty": "A2",
+      "definition": "绘画，涂色"
+    },
+    {
+      "verb": "draw",
+      "difficulty": "A2",
+      "definition": "画画，素描"
+    },
+    {
+      "verb": "play",
+      "difficulty": "A1",
+      "definition": "玩，演奏(乐器)，进行(运动)"
+    },
+    {
+      "verb": "practice",
+      "difficulty": "A2",
+      "definition": "练习，实践(技能、乐器)"
+    },
+    {
+      "verb": "collect",
+      "difficulty": "B1",
+      "definition": "收集，收藏(邮票、模型)"
+    },
+    {
+      "verb": "watch",
+      "difficulty": "A1",
+      "definition": "观看(电视、电影、比赛)"
+    },
+    {
+      "verb": "listen",
+      "difficulty": "A1",
+      "definition": "听，聆听(音乐、播客)"
+    },
+    {
+      "verb": "learn",
+      "difficulty": "A1",
+      "definition": "学习(新技能、语言)"
+    },
+    {
+      "verb": "create",
+      "difficulty": "B1",
+      "definition": "创造，创作(艺术品、内容)"
+    },
+    {
+      "verb": "build",
+      "difficulty": "A2",
+      "definition": "建造，搭建(模型、乐高)"
+    },
+    {
+      "verb": "hike",
+      "difficulty": "B1",
+      "definition": "徒步旅行"
+    },
+    {
+      "verb": "cycle",
+      "difficulty": "B1",
+      "definition": "骑自行车"
+    },
+    {
+      "verb": "meditate",
+      "difficulty": "B2",
+      "definition": "冥想，打坐"
+    },
+    {
+      "verb": "exercise",
+      "difficulty": "A2",
+      "definition": "锻炼，运动"
+    },
+    {
+      "verb": "relax",
+      "difficulty": "A2",
+      "definition": "放松，休息"
+    },
+    {
+      "verb": "stretch",
+      "difficulty": "B1",
+      "definition": "伸展，拉伸"
+    },
+    {
+      "verb": "rest",
+      "difficulty": "A2",
+      "definition": "休息"
+    },
+    {
+      "verb": "sleep",
+      "difficulty": "A1",
+      "definition": "睡觉，睡眠"
+    },
+    {
+      "verb": "recover",
+      "difficulty": "B1",
+      "definition": "恢复，康复(从疾病或疲劳中)"
+    },
+    {
+      "verb": "treat",
+      "difficulty": "B1",
+      "definition": "治疗，处理(疾病)"
+    },
+    {
+      "verb": "consult",
+      "difficulty": "B2",
+      "definition": "咨询，请教(医生、专家)"
+    },
+    {
+      "verb": "feel",
+      "difficulty": "A1",
+      "definition": "感觉，感受(身体状况)"
+    },
+    {
+      "verb": "injure",
+      "difficulty": "B2",
+      "definition": "使受伤，损害"
+    }
+  ]
+}

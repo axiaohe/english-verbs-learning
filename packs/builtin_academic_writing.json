@@ -1,0 +1,391 @@
+{
+  "pack_name": "builtin_academic_writing",
+  "display_name": "学术写作动词",
+  "description": "论文、研究报告、议论文等学术写作中不可或缺的核心动词，帮助你更专业、更精确地表达学术观点和论证逻辑。",
+  "category": "学术写作",
+  "language": "en-zh",
+  "version": "1.0",
+  "author": "curated",
+  "difficulty_distribution": {
+    "B2": 48,
+    "C1": 19,
+    "B1": 8
+  },
+  "verbs": [
+    {
+      "verb": "introduce",
+      "difficulty": "B2",
+      "definition": "介绍，引出，提出(论点、主题)"
+    },
+    {
+      "verb": "examine",
+      "difficulty": "B2",
+      "definition": "检查，审查，研究(问题、证据)"
+    },
+    {
+      "verb": "explore",
+      "difficulty": "B2",
+      "definition": "探索，探讨，研究(可能性、领域)"
+    },
+    {
+      "verb": "investigate",
+      "difficulty": "C1",
+      "definition": "调查，研究，侦查(问题、现象)"
+    },
+    {
+      "verb": "address",
+      "difficulty": "B2",
+      "definition": "处理，应对，阐述(问题、主题)"
+    },
+    {
+      "verb": "outline",
+      "difficulty": "B2",
+      "definition": "概述，勾勒出(计划、论点)"
+    },
+    {
+      "verb": "present",
+      "difficulty": "B2",
+      "definition": "呈现，提交，提出(论据、发现)"
+    },
+    {
+      "verb": "propose",
+      "difficulty": "B2",
+      "definition": "提议，建议，提出(理论、方案)"
+    },
+    {
+      "verb": "suggest",
+      "difficulty": "B2",
+      "definition": "表明，暗示，建议(可能性、观点)"
+    },
+    {
+      "verb": "consider",
+      "difficulty": "B2",
+      "definition": "考虑，认为，审视(问题、因素)"
+    },
+    {
+      "verb": "argue",
+      "difficulty": "B2",
+      "definition": "辩论，论证，主张(观点、立场)"
+    },
+    {
+      "verb": "contend",
+      "difficulty": "C1",
+      "definition": "声称，主张，争论(某事是真的)"
+    },
+    {
+      "verb": "assert",
+      "difficulty": "C1",
+      "definition": "坚称，断言，主张(自己的权利、观点)"
+    },
+    {
+      "verb": "claim",
+      "difficulty": "B2",
+      "definition": "声称，断言，主张(某事属实)"
+    },
+    {
+      "verb": "demonstrate",
+      "difficulty": "B2",
+      "definition": "证明，论证，展示(原理、结果)"
+    },
+    {
+      "verb": "illustrate",
+      "difficulty": "B2",
+      "definition": "阐明，说明，举例说明"
+    },
+    {
+      "verb": "highlight",
+      "difficulty": "B2",
+      "definition": "强调，突出，使显著"
+    },
+    {
+      "verb": "emphasize",
+      "difficulty": "B2",
+      "definition": "强调，着重，突出"
+    },
+    {
+      "verb": "analyze",
+      "difficulty": "B2",
+      "definition": "分析，解析，研究(数据、文本)"
+    },
+    {
+      "verb": "interpret",
+      "difficulty": "B2",
+      "definition": "解释，阐释，理解(数据、意义)"
+    },
+    {
+      "verb": "evaluate",
+      "difficulty": "B2",
+      "definition": "评估，评价，衡量(价值、质量)"
+    },
+    {
+      "verb": "assess",
+      "difficulty": "B2",
+      "definition": "评估，评定，估计(重要性、影响)"
+    },
+    {
+      "verb": "critique",
+      "difficulty": "C1",
+      "definition": "评论，批判性分析(作品、理论)"
+    },
+    {
+      "verb": "challenge",
+      "difficulty": "B2",
+      "definition": "质疑，挑战，提出异议"
+    },
+    {
+      "verb": "question",
+      "difficulty": "B2",
+      "definition": "质疑，对…表示怀疑"
+    },
+    {
+      "verb": "indicate",
+      "difficulty": "B2",
+      "definition": "表明，指出，暗示(结果、趋势)"
+    },
+    {
+      "verb": "reveal",
+      "difficulty": "B2",
+      "definition": "揭示，透露，显示(信息、真相)"
+    },
+    {
+      "verb": "show",
+      "difficulty": "B1",
+      "definition": "显示，表明(数据、结果)"
+    },
+    {
+      "verb": "imply",
+      "difficulty": "B2",
+      "definition": "暗示，意味，含有…的意思"
+    },
+    {
+      "verb": "correlate",
+      "difficulty": "C1",
+      "definition": "相关，使相互关联(变量、现象)"
+    },
+    {
+      "verb": "attribute",
+      "difficulty": "C1",
+      "definition": "归因于，认为…是…的属性"
+    },
+    {
+      "verb": "confirm",
+      "difficulty": "B2",
+      "definition": "证实，确认，肯定(结果、假设)"
+    },
+    {
+      "verb": "verify",
+      "difficulty": "C1",
+      "definition": "核实，证实，查证(事实、数据)"
+    },
+    {
+      "verb": "observe",
+      "difficulty": "B2",
+      "definition": "观察，注意到，遵守(现象、规则)"
+    },
+    {
+      "verb": "find",
+      "difficulty": "B1",
+      "definition": "发现，得出(研究结果)"
+    },
+    {
+      "verb": "discover",
+      "difficulty": "B1",
+      "definition": "发现(新事物、规律)"
+    },
+    {
+      "verb": "discuss",
+      "difficulty": "B2",
+      "definition": "讨论，论述，探讨(话题、问题)"
+    },
+    {
+      "verb": "infer",
+      "difficulty": "C1",
+      "definition": "推断，推论，推理(结论、意义)"
+    },
+    {
+      "verb": "deduce",
+      "difficulty": "C1",
+      "definition": "推论，演绎，得出结论"
+    },
+    {
+      "verb": "conclude",
+      "difficulty": "B2",
+      "definition": "总结，得出结论，断定"
+    },
+    {
+      "verb": "establish",
+      "difficulty": "B2",
+      "definition": "建立，确立，证实(事实、理论)"
+    },
+    {
+      "verb": "support",
+      "difficulty": "B1",
+      "definition": "支持，支撑，证实(论点、观点)"
+    },
+    {
+      "verb": "refute",
+      "difficulty": "C1",
+      "definition": "反驳，驳斥，否认(论点、证据)"
+    },
+    {
+      "verb": "contradict",
+      "difficulty": "C1",
+      "definition": "反驳，与…矛盾，否认"
+    },
+    {
+      "verb": "differentiate",
+      "difficulty": "C1",
+      "definition": "区分，辨别，使不同"
+    },
+    {
+      "verb": "distinguish",
+      "difficulty": "B2",
+      "definition": "区分，辨别，识别(不同之处)"
+    },
+    {
+      "verb": "organize",
+      "difficulty": "B1",
+      "definition": "组织，安排，整理(信息、结构)"
+    },
+    {
+      "verb": "structure",
+      "difficulty": "B2",
+      "definition": "构成，组织，安排(文本、论证)"
+    },
+    {
+      "verb": "categorize",
+      "difficulty": "C1",
+      "definition": "分类，归类，把…列入范畴"
+    },
+    {
+      "verb": "classify",
+      "difficulty": "B2",
+      "definition": "分类，归类，分等"
+    },
+    {
+      "verb": "define",
+      "difficulty": "B2",
+      "definition": "定义，界定，阐明"
+    },
+    {
+      "verb": "delineate",
+      "difficulty": "C1",
+      "definition": "描绘，勾画，阐明(范围、特征)"
+    },
+    {
+      "verb": "cite",
+      "difficulty": "B2",
+      "definition": "引用，引证，提及(来源、证据)"
+    },
+    {
+      "verb": "refer",
+      "difficulty": "B1",
+      "definition": "参考，提及，指代(文献、观点)"
+    },
+    {
+      "verb": "quote",
+      "difficulty": "B2",
+      "definition": "引用，引述，复述(原文、原话)"
+    },
+    {
+      "verb": "acknowledge",
+      "difficulty": "B2",
+      "definition": "承认，鸣谢，致谢(来源、贡献)"
+    },
+    {
+      "verb": "synthesize",
+      "difficulty": "C1",
+      "definition": "综合，合成，整合(信息、思想)"
+    },
+    {
+      "verb": "summarize",
+      "difficulty": "B2",
+      "definition": "总结，概括，归纳"
+    },
+    {
+      "verb": "integrate",
+      "difficulty": "B2",
+      "definition": "整合，融入，结合"
+    },
+    {
+      "verb": "incorporate",
+      "difficulty": "C1",
+      "definition": "纳入，包含，吸收(要素、观点)"
+    },
+    {
+      "verb": "develop",
+      "difficulty": "B1",
+      "definition": "发展，阐述，详尽说明(理论、观点)"
+    },
+    {
+      "verb": "elaborate",
+      "difficulty": "C1",
+      "definition": "详尽阐述，详细说明"
+    },
+    {
+      "verb": "expand",
+      "difficulty": "B2",
+      "definition": "扩大，扩展，详述(观点、范围)"
+    },
+    {
+      "verb": "articulate",
+      "difficulty": "C1",
+      "definition": "清楚地表达，阐明"
+    },
+    {
+      "verb": "formulate",
+      "difficulty": "B2",
+      "definition": "阐明，规划，制定(理论、策略)"
+    },
+    {
+      "verb": "apply",
+      "difficulty": "B1",
+      "definition": "应用，运用，实施(理论、方法)"
+    },
+    {
+      "verb": "adapt",
+      "difficulty": "B2",
+      "definition": "适应，改编，修改(方法、理论)"
+    },
+    {
+      "verb": "derive",
+      "difficulty": "C1",
+      "definition": "源于，导出，获得(结论、概念)"
+    },
+    {
+      "verb": "emerge",
+      "difficulty": "B2",
+      "definition": "出现，浮现，显露(结果、问题)"
+    },
+    {
+      "verb": "function",
+      "difficulty": "B2",
+      "definition": "起作用，运作，履行职责"
+    },
+    {
+      "verb": "generate",
+      "difficulty": "B2",
+      "definition": "产生，生成，引起(数据、想法)"
+    },
+    {
+      "verb": "identify",
+      "difficulty": "B2",
+      "definition": "识别，确认，发现(问题、模式)"
+    },
+    {
+      "verb": "impact",
+      "difficulty": "B2",
+      "definition": "影响，冲击，产生作用"
+    },
+    {
+      "verb": "obtain",
+      "difficulty": "B2",
+      "definition": "获得，取得，得到(数据、结果)"
+    },
+    {
+      "verb": "utilize",
+      "difficulty": "B2",
+      "definition": "利用，使用，应用"
+    }
+  ]
+}

@@ -1,0 +1,491 @@
+{
+  "pack_name": "builtin_ielts_core",
+  "display_name": "雅思核心动词",
+  "description": "IELTS 考试听说读写四大模块高频核心动词，侧重 B1-C1 的学术和日常场景词汇，帮助考生在写作和口语中更精准地表达观点。",
+  "category": "IELTS",
+  "language": "en-zh",
+  "version": "1.0",
+  "author": "curated",
+  "difficulty_distribution": {
+    "B2": 32,
+    "B1": 48,
+    "C1": 15
+  },
+  "verbs": [
+    {
+      "verb": "analyze",
+      "difficulty": "B2",
+      "definition": "分析，解析(数据、问题)"
+    },
+    {
+      "verb": "assess",
+      "difficulty": "B2",
+      "definition": "评估，评定(价值、影响)"
+    },
+    {
+      "verb": "evaluate",
+      "difficulty": "B2",
+      "definition": "评价，衡量(表现、效果)"
+    },
+    {
+      "verb": "investigate",
+      "difficulty": "B2",
+      "definition": "调查，研究(原因、问题)"
+    },
+    {
+      "verb": "examine",
+      "difficulty": "B2",
+      "definition": "检查，细查(证据、情况)"
+    },
+    {
+      "verb": "research",
+      "difficulty": "B1",
+      "definition": "研究，调查(课题)"
+    },
+    {
+      "verb": "explore",
+      "difficulty": "B1",
+      "definition": "探索，探究(可能性、领域)"
+    },
+    {
+      "verb": "identify",
+      "difficulty": "B1",
+      "definition": "识别，认出(问题、特征)"
+    },
+    {
+      "verb": "interpret",
+      "difficulty": "B2",
+      "definition": "解释，阐释(意义、数据)"
+    },
+    {
+      "verb": "synthesize",
+      "difficulty": "C1",
+      "definition": "综合，整合(信息、观点)"
+    },
+    {
+      "verb": "demonstrate",
+      "difficulty": "B1",
+      "definition": "证明，表明(事实、观点)"
+    },
+    {
+      "verb": "illustrate",
+      "difficulty": "B1",
+      "definition": "阐明，举例说明(概念)"
+    },
+    {
+      "verb": "present",
+      "difficulty": "B1",
+      "definition": "呈现，展示(信息、观点)"
+    },
+    {
+      "verb": "cite",
+      "difficulty": "B2",
+      "definition": "引用，引证(来源、文献)"
+    },
+    {
+      "verb": "refer",
+      "difficulty": "B1",
+      "definition": "参考，提及(某事、某人)"
+    },
+    {
+      "verb": "argue",
+      "difficulty": "B1",
+      "definition": "争论，辩论；主张，论证(观点)"
+    },
+    {
+      "verb": "support",
+      "difficulty": "B1",
+      "definition": "支持，证实(观点、论点)"
+    },
+    {
+      "verb": "challenge",
+      "difficulty": "B1",
+      "definition": "质疑，挑战(观点、权威)"
+    },
+    {
+      "verb": "critique",
+      "difficulty": "C1",
+      "definition": "评论，批判(作品、理论)"
+    },
+    {
+      "verb": "elaborate",
+      "difficulty": "B2",
+      "definition": "详尽阐述，详细说明(观点)"
+    },
+    {
+      "verb": "hypothesize",
+      "difficulty": "C1",
+      "definition": "假设，提出假说(理论)"
+    },
+    {
+      "verb": "theorize",
+      "difficulty": "C1",
+      "definition": "理论化，建立理论(原理)"
+    },
+    {
+      "verb": "deduce",
+      "difficulty": "C1",
+      "definition": "推断，演绎(结论)"
+    },
+    {
+      "verb": "infer",
+      "difficulty": "B2",
+      "definition": "推断，推论(含义)"
+    },
+    {
+      "verb": "conclude",
+      "difficulty": "B1",
+      "definition": "总结，得出结论(讨论)"
+    },
+    {
+      "verb": "summarize",
+      "difficulty": "B1",
+      "definition": "总结，概述(信息)"
+    },
+    {
+      "verb": "define",
+      "difficulty": "B1",
+      "definition": "定义，界定(概念)"
+    },
+    {
+      "verb": "categorize",
+      "difficulty": "B2",
+      "definition": "分类，归类(事物)"
+    },
+    {
+      "verb": "classify",
+      "difficulty": "B2",
+      "definition": "分类，把…归入(体系)"
+    },
+    {
+      "verb": "differentiate",
+      "difficulty": "B2",
+      "definition": "区分，辨别(差异)"
+    },
+    {
+      "verb": "distinguish",
+      "difficulty": "B1",
+      "definition": "区分，辨别(种类)"
+    },
+    {
+      "verb": "compare",
+      "difficulty": "B1",
+      "definition": "比较，对照(事物)"
+    },
+    {
+      "verb": "contrast",
+      "difficulty": "B1",
+      "definition": "对比，对照(差异)"
+    },
+    {
+      "verb": "address",
+      "difficulty": "B2",
+      "definition": "处理，应对(问题、挑战)"
+    },
+    {
+      "verb": "tackle",
+      "difficulty": "B2",
+      "definition": "处理，解决(难题)"
+    },
+    {
+      "verb": "resolve",
+      "difficulty": "B2",
+      "definition": "解决(问题)，解除(疑虑)"
+    },
+    {
+      "verb": "overcome",
+      "difficulty": "B1",
+      "definition": "克服，战胜(困难)"
+    },
+    {
+      "verb": "mitigate",
+      "difficulty": "C1",
+      "definition": "减轻，缓解(负面影响)"
+    },
+    {
+      "verb": "alleviate",
+      "difficulty": "C1",
+      "definition": "减轻，缓解(痛苦、问题)"
+    },
+    {
+      "verb": "develop",
+      "difficulty": "B1",
+      "definition": "发展，开发(能力、项目)"
+    },
+    {
+      "verb": "implement",
+      "difficulty": "B2",
+      "definition": "实施，执行(计划、政策)"
+    },
+    {
+      "verb": "promote",
+      "difficulty": "B1",
+      "definition": "促进，推广(发展、产品)"
+    },
+    {
+      "verb": "facilitate",
+      "difficulty": "B2",
+      "definition": "促进，使便利(过程)"
+    },
+    {
+      "verb": "enhance",
+      "difficulty": "B2",
+      "definition": "提高，增强(质量、价值)"
+    },
+    {
+      "verb": "improve",
+      "difficulty": "B1",
+      "definition": "改善，提高(状况)"
+    },
+    {
+      "verb": "contribute",
+      "difficulty": "B1",
+      "definition": "贡献，促成(结果)"
+    },
+    {
+      "verb": "achieve",
+      "difficulty": "B1",
+      "definition": "达到，实现(目标)"
+    },
+    {
+      "verb": "attain",
+      "difficulty": "B2",
+      "definition": "达到，获得(成就)"
+    },
+    {
+      "verb": "pursue",
+      "difficulty": "B2",
+      "definition": "追求，从事(目标、事业)"
+    },
+    {
+      "verb": "adapt",
+      "difficulty": "B1",
+      "definition": "适应，调整(环境)"
+    },
+    {
+      "verb": "adjust",
+      "difficulty": "B1",
+      "definition": "调整，调节(改变)"
+    },
+    {
+      "verb": "modify",
+      "difficulty": "B2",
+      "definition": "修改，更改(计划、设计)"
+    },
+    {
+      "verb": "innovate",
+      "difficulty": "C1",
+      "definition": "创新，革新(技术、方法)"
+    },
+    {
+      "verb": "expand",
+      "difficulty": "B1",
+      "definition": "扩大，扩展(规模)"
+    },
+    {
+      "verb": "reduce",
+      "difficulty": "B1",
+      "definition": "减少，降低(数量、程度)"
+    },
+    {
+      "verb": "decrease",
+      "difficulty": "B1",
+      "definition": "减少，下降(数量)"
+    },
+    {
+      "verb": "increase",
+      "difficulty": "B1",
+      "definition": "增加，增长(数量)"
+    },
+    {
+      "verb": "decline",
+      "difficulty": "B1",
+      "definition": "下降，衰落(数量、状况)"
+    },
+    {
+      "verb": "fluctuate",
+      "difficulty": "B2",
+      "definition": "波动，起伏(价格、数量)"
+    },
+    {
+      "verb": "stabilize",
+      "difficulty": "B2",
+      "definition": "稳定，使稳定(局势)"
+    },
+    {
+      "verb": "rise",
+      "difficulty": "B1",
+      "definition": "上升，增加(数量、水平)"
+    },
+    {
+      "verb": "fall",
+      "difficulty": "B1",
+      "definition": "下降，减少(数量、水平)"
+    },
+    {
+      "verb": "peak",
+      "difficulty": "B2",
+      "definition": "达到顶峰，达到最高点(数量)"
+    },
+    {
+      "verb": "plunge",
+      "difficulty": "C1",
+      "definition": "骤降，暴跌(数量、价值)"
+    },
+    {
+      "verb": "soar",
+      "difficulty": "C1",
+      "definition": "猛增，飙升(数量、价格)"
+    },
+    {
+      "verb": "grow",
+      "difficulty": "B1",
+      "definition": "增长，发展(数量、经济)"
+    },
+    {
+      "verb": "shrink",
+      "difficulty": "B2",
+      "definition": "缩小，收缩(规模)"
+    },
+    {
+      "verb": "emerge",
+      "difficulty": "B1",
+      "definition": "出现，浮现(新情况)"
+    },
+    {
+      "verb": "evolve",
+      "difficulty": "B2",
+      "definition": "进化，发展(事物)"
+    },
+    {
+      "verb": "transform",
+      "difficulty": "B2",
+      "definition": "改变，转化(形式)"
+    },
+    {
+      "verb": "shift",
+      "difficulty": "B1",
+      "definition": "转变，转移(观点、重点)"
+    },
+    {
+      "verb": "acquire",
+      "difficulty": "B2",
+      "definition": "获得，习得(知识、技能)"
+    },
+    {
+      "verb": "enable",
+      "difficulty": "B1",
+      "definition": "使能够，使可能(做某事)"
+    },
+    {
+      "verb": "engage",
+      "difficulty": "B2",
+      "definition": "从事，参与(活动)"
+    },
+    {
+      "verb": "participate",
+      "difficulty": "B1",
+      "definition": "参加，参与(活动)"
+    },
+    {
+      "verb": "utilize",
+      "difficulty": "B2",
+      "definition": "利用，使用(资源)"
+    },
+    {
+      "verb": "employ",
+      "difficulty": "B2",
+      "definition": "雇用；使用，运用(方法)"
+    },
+    {
+      "verb": "obtain",
+      "difficulty": "B1",
+      "definition": "获得，取得(信息、结果)"
+    },
+    {
+      "verb": "provide",
+      "difficulty": "B1",
+      "definition": "提供，供给(服务、信息)"
+    },
+    {
+      "verb": "offer",
+      "difficulty": "B1",
+      "definition": "提供，给予(机会)"
+    },
+    {
+      "verb": "require",
+      "difficulty": "B1",
+      "definition": "要求，需要(条件)"
+    },
+    {
+      "verb": "necessitate",
+      "difficulty": "C1",
+      "definition": "使…成为必需，使…不得不(发生)"
+    },
+    {
+      "verb": "depend",
+      "difficulty": "B1",
+      "definition": "依赖，取决于(条件)"
+    },
+    {
+      "verb": "result",
+      "difficulty": "B1",
+      "definition": "导致，结果是(后果)"
+    },
+    {
+      "verb": "lead",
+      "difficulty": "B1",
+      "definition": "导致，引导(结果)"
+    },
+    {
+      "verb": "cause",
+      "difficulty": "B1",
+      "definition": "导致，引起(事件)"
+    },
+    {
+      "verb": "affect",
+      "difficulty": "B1",
+      "definition": "影响，感动(事物)"
+    },
+    {
+      "verb": "impact",
+      "difficulty": "B1",
+      "definition": "影响，冲击(事物)"
+    },
+    {
+      "verb": "influence",
+      "difficulty": "B1",
+      "definition": "影响，支配(行为)"
+    },
+    {
+      "verb": "stem",
+      "difficulty": "C1",
+      "definition": "源于，来自(原因)"
+    },
+    {
+      "verb": "derive",
+      "difficulty": "C1",
+      "definition": "源于，获得(来源)"
+    },
+    {
+      "verb": "originate",
+      "difficulty": "B2",
+      "definition": "起源，发源(某地)"
+    },
+    {
+      "verb": "constitute",
+      "difficulty": "C1",
+      "definition": "构成，组成(整体)"
+    },
+    {
+      "verb": "comprise",
+      "difficulty": "C1",
+      "definition": "包含，由…组成(部分)"
+    },
+    {
+      "verb": "consist",
+      "difficulty": "B1",
+      "definition": "由…组成，在于(部分、本质)"
+    }
+  ]
+}

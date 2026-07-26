@@ -27,6 +27,13 @@ Desktop.ini
 .agents/skills/
 .claude/skills/
 
+# User-generated vocabulary packs (local, not tracked)
+packs/generated_*.json
+packs/user_imported/
+
+# One-off helper scripts
+generate_packs.py
+
 # IDE and Editor configurations
 .vscode/
 .idea/
