@@ -1,0 +1,48 @@
+# App theme. Replaces the CSS that used to be injected from app.py.
+# Both light and dark variants are defined, so the theme switcher stays available
+# in the app's settings menu.
+
+[theme]
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+baseFontSize = 15
+baseRadius = "medium"
+buttonRadius = "medium"
+showWidgetBorder = true
+showSidebarBorder = true
+linkUnderline = false
+# Mid-tone palette that stays legible on both light and dark backgrounds
+chartCategoricalColors = ["#3B82F6", "#10B981", "#F59E0B", "#8B5CF6", "#EF4444", "#06B6D4", "#94A3B8"]
+
+[theme.light]
+primaryColor = "#2563EB"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F3F4F6"
+textColor = "#1F2937"
+borderColor = "#E5E7EB"
+greenColor = "#059669"
+redColor = "#DC2626"
+orangeColor = "#D97706"
+blueColor = "#1D4ED8"
+dataframeHeaderBackgroundColor = "#F3F4F6"
+
+[theme.dark]
+primaryColor = "#60A5FA"
+backgroundColor = "#0F172A"
+secondaryBackgroundColor = "#1E293B"
+textColor = "#E2E8F0"
+borderColor = "#334155"
+greenColor = "#34D399"
+redColor = "#F87171"
+orangeColor = "#FBBF24"
+blueColor = "#60A5FA"
+dataframeHeaderBackgroundColor = "#1E293B"
+
+[theme.light.sidebar]
+backgroundColor = "#F9FAFB"
+secondaryBackgroundColor = "#F3F4F6"
+borderColor = "#E5E7EB"
+
+[theme.dark.sidebar]
+backgroundColor = "#0B1220"
+secondaryBackgroundColor = "#1E293B"
+borderColor = "#334155"
