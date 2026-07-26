@@ -1,4 +1,3 @@
-
 # 🎯 AI English Verb Practice Agent (AI 英语动词智能训练营)
 
 这是一个专为英语学习者设计的**智能动词情景练习与进度追踪工具**。项目基于 **Python + Streamlit** 编写，并利用 **Google Gemini API** 实现高度智能化、场景化的口语表达与同义词运用评估。
