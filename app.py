@@ -77,6 +77,15 @@ st.session_state.setdefault("starred_filter", False)
 st.session_state.setdefault("pack_manager_selected_pack", None)
 st.session_state.setdefault("ai_generated_preview", None)
 
+# Scenario-specific training state
+st.session_state.setdefault("practice_mode", "regular")       # "regular" or "scenario"
+st.session_state.setdefault("scenario_verbs", [])              # [{verb, difficulty, definition}, ...]
+st.session_state.setdefault("scenario_verb_index", 0)          # current position in scenario_verbs
+st.session_state.setdefault("scenario_test_count", 0)          # total tests done this session
+st.session_state.setdefault("scenario_correct_count", 0)       # correct answers this session
+st.session_state.setdefault("scenario_wrong_verbs", [])        # verbs answered incorrectly
+st.session_state.setdefault("scenario_gen_topic", "")          # topic name for display
+
 
 def reset_question():
     """Drops the current question so the next run generates a fresh one."""
@@ -84,6 +93,24 @@ def reset_question():
     st.session_state.user_submitted = False
     st.session_state.evaluation_result = None
     st.session_state.show_target_verb = False
+
+
+def reset_scenario_session():
+    """Clears all scenario-specific session state."""
+    st.session_state.scenario_verbs = []
+    st.session_state.scenario_verb_index = 0
+    st.session_state.scenario_test_count = 0
+    st.session_state.scenario_correct_count = 0
+    st.session_state.scenario_wrong_verbs = []
+    st.session_state.scenario_gen_topic = ""
+
+
+def set_practice_mode(mode: str):
+    """Switches between 'regular' and 'scenario' practice modes."""
+    if mode != st.session_state.practice_mode:
+        st.session_state.practice_mode = mode
+        reset_question()
+        reset_scenario_session()
 
 
 # =====================================================================
@@ -171,23 +198,104 @@ tab_practice, tab_notebook, tab_analytics, tab_settings, tab_packs = st.tabs([
 # TAB 1: PRACTICE MODE
 # =====================================================================
 with tab_practice:
-    # 1. Fetch a question if we don't have one
+    # ---- Mode Toggle ----
+    mode_sel, mode_spacer = st.columns([1, 3])
+    with mode_sel:
+        st.radio(
+            "练习模式",
+            options=["regular", "scenario"],
+            format_func=lambda x: "\U0001f4da 常规训练" if x == "regular" else "\U0001f3af 场景专项",
+            key="practice_mode",
+            horizontal=True,
+            label_visibility="collapsed",
+        )
+
+    # ---- Scenario Generator UI ----
+    if st.session_state.practice_mode == "scenario":
+        if not st.session_state.scenario_verbs:
+            gen_c1, gen_c2, gen_c3 = st.columns([2, 1, 1])
+            with gen_c1:
+                scenario_prompt = st.text_input(
+                    "输入你想练习的场景",
+                    placeholder="例如：坐飞机旅行、健身练胸、餐厅点餐、商务谈判…",
+                    key="scenario_prompt_input",
+                )
+            with gen_c2:
+                verb_count = st.slider("动词数量", min_value=10, max_value=50, value=30, step=5, key="scenario_verb_count")
+            with gen_c3:
+                st.markdown("&nbsp;")
+                if st.button("\U0001f3af 生成场景练习", width="stretch", type="primary", disabled=not client.is_configured()):
+                    if not scenario_prompt.strip():
+                        st.error("请输入场景描述。")
+                    elif not client.is_configured():
+                        st.error("需要配置 Gemini API Key 才能使用此功能。")
+                    else:
+                        with st.spinner(f"正在为[{scenario_prompt.strip()}]生成专属动词列表…"):
+                            verbs = client.generate_scenario_verbs(scenario_prompt.strip(), verb_count)
+                        if verbs:
+                            st.session_state.scenario_verbs = verbs
+                            st.session_state.scenario_gen_topic = scenario_prompt.strip()
+                            st.session_state.scenario_verb_index = 0
+                            st.session_state.scenario_test_count = 0
+                            st.session_state.scenario_correct_count = 0
+                            st.session_state.scenario_wrong_verbs = []
+                            reset_question()
+                            st.rerun()
+                        else:
+                            st.error("生成失败，请检查 API Key 或稍后重试。")
+        else:
+            total = len(st.session_state.scenario_verbs)
+            done = st.session_state.scenario_test_count
+            st.progress(done / total, text=f"\U0001f3af 场景[{st.session_state.scenario_gen_topic}]已练习 {done}/{total} 个动词 | ✅ {st.session_state.scenario_correct_count}  ❌ {len(st.session_state.scenario_wrong_verbs)}")
+
+            if done >= total:
+                correct = st.session_state.scenario_correct_count
+                wrong = len(st.session_state.scenario_wrong_verbs)
+                with st.container(border=True):
+                    st.markdown("### 本轮练习总结")
+                    st.markdown(f"**场景主题:** {st.session_state.scenario_gen_topic}")
+                    st.markdown(f"**练习动词数:** {total}")
+                    st.markdown(f"**正确:** {correct}  |  **错误:** {wrong}")
+                    if st.session_state.scenario_wrong_verbs:
+                        st.markdown("**以下错词已保存到单词库:**")
+                        for w in st.session_state.scenario_wrong_verbs:
+                            st.markdown(f"- `{w['verb']}` — {w['definition']} ({w['difficulty']})")
+                    if st.button("\U0001f504 生成新场景", width="stretch", type="primary"):
+                        reset_scenario_session()
+                        reset_question()
+                        st.rerun()
+
+    # ---- Question Generation ----
     if st.session_state.current_question is None:
         diff_val = None if st.session_state.difficulty_filter == "All" else st.session_state.difficulty_filter
 
-        test_verb_row = db_manager.get_verb_for_test(
-            difficulty_filter=diff_val,
-            starred_only=st.session_state.starred_filter,
-        )
+        if st.session_state.practice_mode == "scenario" and st.session_state.scenario_verbs:
+            idx = st.session_state.scenario_verb_index
+            if idx < len(st.session_state.scenario_verbs):
+                verb_data = st.session_state.scenario_verbs[idx]
+                test_verb_row = verb_data
+            else:
+                test_verb_row = None
+        else:
+            test_verb_row = db_manager.get_verb_for_test(
+                difficulty_filter=diff_val,
+                starred_only=st.session_state.starred_filter,
+            )
 
         if test_verb_row is None:
-            if st.session_state.starred_filter:
-                st.info("你的收藏夹中还没有该难度的单词。请在【单词备忘录】里收藏一些词汇，或关闭“仅测试收藏夹”。")
+            if st.session_state.practice_mode == "scenario" and st.session_state.scenario_verbs:
+                pass
+            elif st.session_state.starred_filter:
+                st.info("你的收藏夹中还没有该难度的单词。请在【单词备忘录】里收藏一些词汇，或关闭「仅测试收藏夹」。")
             else:
                 st.info("没有找到符合当前过滤条件的单词，请在【单词备忘录】中添加词汇。")
         else:
             st.session_state.current_verb = test_verb_row["verb"]
-            st.session_state.current_scenario = random.choice(SCENARIOS_SEED)["name"]
+
+            if st.session_state.practice_mode == "scenario":
+                st.session_state.current_scenario = st.session_state.scenario_gen_topic
+            else:
+                st.session_state.current_scenario = random.choice(SCENARIOS_SEED)["name"]
 
             with st.spinner("正在结合日常生活场景，为你量身定制题目…"):
                 question_obj = client.generate_question(
@@ -268,6 +376,24 @@ with tab_practice:
                         is_correct=eval_obj.is_correct,
                         feedback=eval_obj.feedback,
                     )
+
+                    # Scenario mode: track progress and save wrong verbs
+                    if st.session_state.practice_mode == "scenario":
+                        st.session_state.scenario_test_count += 1
+                        if eval_obj.is_correct:
+                            st.session_state.scenario_correct_count += 1
+                        else:
+                            st.session_state.scenario_wrong_verbs.append({
+                                "verb": st.session_state.current_verb,
+                                "difficulty": test_verb_row.get("difficulty", "B1"),
+                                "definition": test_verb_row.get("definition", ""),
+                            })
+                            # Save wrong verb to database (INSERT OR IGNORE via IntegrityError)
+                            db_manager.add_custom_verb(
+                                verb=st.session_state.current_verb,
+                                difficulty=test_verb_row.get("difficulty", "B1"),
+                                definition=test_verb_row.get("definition", ""),
+                            )
                 st.rerun()
 
             # Evaluation results
@@ -299,6 +425,8 @@ with tab_practice:
                     help="快捷键：Enter",
                 ):
                     reset_question()
+                    if st.session_state.practice_mode == "scenario":
+                        st.session_state.scenario_verb_index += 1
                     st.rerun()
             else:
                 # Autofocus the answer box so the whole loop stays keyboard-only.

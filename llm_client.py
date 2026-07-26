@@ -55,6 +55,18 @@ class EvaluationSchema(BaseModel):
         description="A friendly, detailed evaluation in Chinese. Explain why the user's input is correct or incorrect, point out grammatical nuances (such as prepositions or tenses), and provide 1-2 examples of everyday collocations of the correct verb."
     )
 
+
+class ScenarioVerbItem(BaseModel):
+    """A single verb entry returned by the scenario verb generator."""
+    verb: str = Field(description="Base form of the English verb (lowercase, e.g. 'board')")
+    difficulty: str = Field(description="CEFR level: A1, A2, B1, B2, C1, or C2")
+    definition: str = Field(description="Clear Chinese definition with context, e.g. '登机，上船'")
+
+
+class ScenarioVerbList(BaseModel):
+    """Wrapper for the AI-generated list of scenario-specific verbs."""
+    verbs: list[ScenarioVerbItem] = Field(description="The list of verbs for this scenario")
+
 def _regular_inflections(base: str) -> set:
     """
     Builds the plausible regular inflections of a base verb (-s / -ed / -ing).
@@ -107,6 +119,54 @@ class GeminiClient:
     def is_configured(self) -> bool:
         """Returns True if the client is fully initialized and ready to make API calls."""
         return self.client is not None
+
+    def generate_scenario_verbs(self, topic: str, count: int = 30) -> list[dict] | None:
+        """
+        Calls Gemini to generate a list of English verbs relevant to a specific scenario/topic.
+        Returns a list of dicts: [{"verb": ..., "difficulty": ..., "definition": ...}, ...]
+        Returns None if the client is not configured or the API call fails.
+        """
+        if not self.is_configured():
+            return None
+
+        prompt = f"""
+You are an expert ESL curriculum designer helping a Chinese-speaking English learner.
+
+The learner wants to practice English verbs specifically related to this scenario: "{topic}".
+Generate exactly {count} English verbs that are:
+- Genuinely useful and high-frequency for this specific scenario
+- Practical for everyday communication in this context
+- A mix of difficulty levels, focused mainly on B1-B2 (intermediate)
+
+Do NOT include extremely basic verbs like "be", "have", "do", "go", "come", "eat", "see" unless they have a specialized meaning in this context.
+
+For each verb provide:
+- verb: base form in lowercase
+- difficulty: appropriate CEFR level (A1, A2, B1, B2, C1, C2)
+- definition: clear, concise Chinese definition with usage context
+"""
+
+        try:
+            response = self.client.models.generate_content(
+                model=self.model_name,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    response_mime_type="application/json",
+                    response_schema=ScenarioVerbList,
+                    temperature=0.9,
+                ),
+            )
+
+            if response.parsed:
+                return [v.model_dump() for v in response.parsed.verbs]
+            elif response.text:
+                parsed = ScenarioVerbList(**json.loads(response.text))
+                return [v.model_dump() for v in parsed.verbs]
+            return None
+
+        except Exception as e:
+            print(f"Gemini API Error in generate_scenario_verbs: {e}")
+            return None
 
     def generate_question(self, verb: str, definition: str, scenario: str) -> QuestionSchema:
         """
