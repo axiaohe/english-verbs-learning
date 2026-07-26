@@ -61,7 +61,8 @@ echo ===================================================
 echo.
 
 :: Start Streamlit (forces opening exactly one browser page)
-streamlit run app.py --server.headless false
+:: Use python -m streamlit to avoid broken .exe wrapper shebangs in moved venvs
+python -m streamlit run app.py --server.headless false
 
 if %errorlevel% neq 0 goto app_fail
 exit /b
