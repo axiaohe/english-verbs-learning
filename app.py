@@ -1,7 +1,12 @@
+import io
 import json
 import os
 import random
+import shutil
+import tempfile
+import zipfile
 from datetime import datetime
+from pathlib import Path
 
 import pandas as pd
 import streamlit as st
@@ -24,6 +29,23 @@ _MARKDOWN_ESCAPES = str.maketrans({c: "\\" + c for c in "\\`*_[]<>|$"})
 def md_escape(text) -> str:
     """Escapes Markdown/HTML control characters so text renders verbatim."""
     return str(text if text is not None else "").translate(_MARKDOWN_ESCAPES)
+
+
+def render_chinese_sentence(text: str) -> str:
+    """
+    Renders a Chinese sentence where the target meaning is wrapped in 【】.
+    The bracketed word is displayed with a red underline so the learner
+    immediately sees which word to express in English.
+    """
+    import re
+    safe = md_escape(text)
+    # Replace 【word】 with underlined HTML
+    highlighted = re.sub(
+        r"【(.+?)】",
+        r'<u style="text-decoration-color:#e74c3c;text-underline-offset:0.25em;text-decoration-thickness:2px;font-weight:600;">\1</u>',
+        safe,
+    )
+    return highlighted
 
 
 st.set_page_config(
@@ -191,7 +213,10 @@ with tab_practice:
             with st.container(border=True):
                 st.caption(f"生活场景 · {md_escape(st.session_state.current_scenario)}")
                 st.markdown("**中文语境（请用英文表达这句话）**")
-                st.markdown(f"#### {md_escape(question['chinese_sentence'])}")
+                st.markdown(
+                    f"#### {render_chinese_sentence(question['chinese_sentence'])}",
+                    unsafe_allow_html=True,
+                )
 
             with st.container(border=True):
                 st.markdown("**上下文对话 (English context)**")
@@ -585,6 +610,107 @@ with tab_settings:
             reset_question()
             st.success("数据重置成功，你现在是一个初学者啦！")
             st.rerun()
+
+    st.divider()
+    st.subheader("数据备份与迁移", divider="gray")
+    st.caption("一键打包所有学习数据，或从备份恢复。换电脑也不丢失进度。")
+
+    backup_col, restore_col = st.columns(2, gap="large")
+
+    # ---- Backup ----
+    with backup_col:
+        st.markdown("**📦 导出备份**")
+        st.caption("打包你的学习进度、收藏夹、答题历史和自定义词包。")
+
+        if st.button("生成备份文件", icon=":material/download:", width="stretch", type="primary"):
+            buf = io.BytesIO()
+            with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+                # Always include the database
+                db_path = Path(db_manager.DB_PATH)
+                if db_path.exists():
+                    zf.write(db_path, db_path.name)
+
+                # Include user_imported packs if they exist
+                user_packs_dir = Path("packs") / "user_imported"
+                if user_packs_dir.exists():
+                    for f in user_packs_dir.iterdir():
+                        if f.is_file():
+                            zf.write(f, str(f))
+
+            buf.seek(0)
+            st.download_button(
+                "⬇ 下载备份文件",
+                data=buf,
+                file_name=f"verb-trainer-backup-{datetime.now().strftime('%Y%m%d-%H%M%S')}.zip",
+                mime="application/zip",
+                icon=":material/download:",
+                width="stretch",
+                type="primary",
+            )
+            st.success("备份文件已生成，点击上方按钮下载。")
+
+    # ---- Restore ----
+    with restore_col:
+        st.markdown("**📥 恢复备份**")
+        st.caption("上传之前导出的备份文件，恢复全部数据。")
+
+        uploaded_backup = st.file_uploader(
+            "选择备份文件 (.zip)",
+            type=["zip"],
+            key="backup_restore_uploader",
+            label_visibility="collapsed",
+        )
+
+        if uploaded_backup is not None:
+            confirm_restore = st.checkbox("我确认将覆盖当前所有数据，此操作不可逆。", key="confirm_restore_checkbox")
+
+            if st.button(
+                "恢复备份数据",
+                icon=":material/upload:",
+                width="stretch",
+                disabled=not confirm_restore,
+            ):
+                try:
+                    with tempfile.TemporaryDirectory() as tmpdir:
+                        tmp = Path(tmpdir)
+                        with zipfile.ZipFile(uploaded_backup, "r") as zf:
+                            zf.extractall(tmp)
+
+                        # Validate: must contain vocab_tracker.db
+                        db_backup = tmp / "vocab_tracker.db"
+                        if not db_backup.exists():
+                            st.error("无效的备份文件：未找到 vocab_tracker.db。")
+                        else:
+                            # Create a safety backup of current DB
+                            current_db = Path(db_manager.DB_PATH)
+                            if current_db.exists():
+                                safety_path = current_db.with_suffix(".db.bak")
+                                shutil.copy2(current_db, safety_path)
+
+                            # Replace database
+                            shutil.copy2(db_backup, current_db)
+
+                            # Restore user_imported packs
+                            user_packs_backup = tmp / "packs" / "user_imported"
+                            if user_packs_backup.exists():
+                                user_packs_dest = Path("packs") / "user_imported"
+                                user_packs_dest.mkdir(parents=True, exist_ok=True)
+                                for f in user_packs_backup.iterdir():
+                                    if f.is_file():
+                                        shutil.copy2(f, user_packs_dest / f.name)
+                                st.info("已恢复自定义词包文件。")
+
+                            # Re-initialize DB to reload packs
+                            db_manager.init_db()
+
+                            st.success("数据恢复成功！所有学习进度、收藏和答题历史已还原。")
+                            st.info("提示：如之前配置过 API Key，请重新输入（或复制 .env 文件）。")
+                            st.rerun()
+
+                except zipfile.BadZipFile:
+                    st.error("文件格式错误：无法解析备份文件，请确认上传的是 .zip 格式。")
+                except Exception as e:
+                    st.error(f"恢复失败：{e}")
 
 # =====================================================================
 # TAB 5: VOCABULARY PACK MANAGER

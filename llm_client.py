@@ -25,7 +25,7 @@ PLACEHOLDER_KEY = "your_gemini_api_key_here"
 
 class QuestionSchema(BaseModel):
     chinese_sentence: str = Field(
-        description="A natural daily-life Chinese sentence that naturally includes the Chinese translation/meaning of the target English verb. The Chinese meaning should appear as a visible, natural part of the sentence — NOT masked, blanked, or enclosed in brackets. The learner should be able to read the full Chinese sentence with the meaning clearly shown."
+        description="A natural daily-life Chinese sentence that naturally includes the Chinese translation/meaning of the target English verb. Wrap the Chinese word/phrase that corresponds to the target verb in 【】 brackets (e.g., '我实在【买不起】这么高端的笔记本电脑'). This helps the learner immediately see which word to express in English."
     )
     english_context: str = Field(
         description="A surrounding English dialog or context (1-2 sentences before or after the blank sentence) to provide rich conversational context."
@@ -37,7 +37,7 @@ class QuestionSchema(BaseModel):
         description="All acceptable English verbs in their exact correct form/tense for the blank. Include the base form and common inflections if applicable. E.g. ['close', 'shut']."
     )
     clue: str = Field(
-        description="A brief, friendly Chinese hint about the target verb — useful as quick reference while the learner thinks. Can include the English verb itself and its Chinese meaning. (e.g., '目标动词是 close，中文意思是关闭，也可以指店铺停止营业')"
+        description="A subtle hint in Chinese that nudges the learner toward the right verb WITHOUT directly revealing it. Describe the meaning, usage scenario, or give a synonym — but do NOT state the English verb itself. (e.g., for 'close': '这个词表示让某物不再敞开，商店晚上也会做这个动作')"
     )
 
 
@@ -128,8 +128,8 @@ class GeminiClient:
         2. Create a vivid conversation context or a specific scene to make the language feel alive.
         3. Make sure the difficulty matches daily, practical communication.
         4. Supply a comprehensive list of acceptable English verbs (in the correct tense) for this exact blank in 'correct_verbs'.
-        5. The 'chinese_sentence' should be a natural Chinese sentence that VISIBLY includes the Chinese translation of the target verb — do NOT mask or blank the Chinese word. The learner should see the full Chinese meaning clearly. Only the English 'blanked_sentence' should have the blank.
-        6. Provide a helpful hint ('clue') in Chinese that directly tells the learner what the target verb is and what it means (e.g., "目标词是 close，意为关闭或停止营业"). This is meant to be a visible reference, not a hidden puzzle — be straightforward.
+        5. The 'chinese_sentence' should be a natural Chinese sentence where the Chinese translation of the target verb is wrapped in 【】 brackets — e.g. "我实在【买不起】这么高端的笔记本电脑". This lets the learner see exactly which Chinese meaning they need to express in English. Only the English 'blanked_sentence' has the blank.
+        6. Provide a subtle hint ('clue') in Chinese that guides the learner toward the verb WITHOUT revealing the English verb itself. Describe the meaning, give a usage scenario, or use a synonym — but NEVER state the English target verb in the clue. Make it a helpful nudge, not the answer.
         """
 
         try:
@@ -214,28 +214,32 @@ class GeminiClient:
         # falls back to the generic template below.
         if verb == "afford":
             blanked = "I really can't ______ to buy such a high-end laptop."
-            chinese = f"【场景：{scenario}】我实在买不起这么高端的笔记本电脑，价格远超我的预算。{has_key_warning}"
+            chinese = f"【场景：{scenario}】我实在【买不起】这么高端的笔记本电脑，价格远超我的预算。{has_key_warning}"
             context = "I bought a new computer yesterday, but it is too expensive."
+            clue = f"这个词表示有足够的钱或能力去做某事，通常用于否定句或疑问句。"
         elif verb == "borrow":
             blanked = "Can I ______ your umbrella for a second? It is pouring outside."
-            chinese = f"【场景：{scenario}】我能借用一下你的雨伞吗？外面正在下大雨。{has_key_warning}"
+            chinese = f"【场景：{scenario}】我能【借用】一下你的雨伞吗？外面正在下大雨。{has_key_warning}"
             context = "It started raining suddenly after work."
+            clue = f"这个词表示从别人那里暂时拿走某物，用完会归还。和 lend（借出）是反义词。"
         elif verb == "apologize":
             blanked = "You should ______ to your sister for breaking her favorite mug."
-            chinese = f"【场景：{scenario}】你应当为打碎妹妹最喜欢的马克杯而向她道歉。{has_key_warning}"
+            chinese = f"【场景：{scenario}】你应当为打碎妹妹最喜欢的马克杯而向她【道歉】。{has_key_warning}"
             context = "My friend is arguing with his sister."
+            clue = f"这个词表示为自己做错的事说对不起，通常和介词 to 搭配使用。"
         else:
             # Generic template
             blanked = f"Please ______ this action carefully so we can proceed."
-            chinese = f"【场景：{scenario}】请仔细{definition}这个步骤，以便我们继续推进。{has_key_warning}"
+            chinese = f"【场景：{scenario}】请仔细【{definition}】这个步骤，以便我们继续推进。{has_key_warning}"
             context = "We are going through the instructions step-by-step."
+            clue = f"这个词的含义是「{definition}」，描述了一个日常动作或状态。请回忆对应的英文动词。"
 
         return QuestionSchema(
             chinese_sentence=chinese,
             english_context=context,
             blanked_sentence=blanked,
             correct_verbs=[verb],
-            clue=f"目标动词是 '{verb}'，中文意思是：{definition}。请在英文填空处填入正确形式的动词。"
+            clue=clue
         )
 
     def _get_mock_evaluation(self, question_data: dict, user_answer: str, target_verb: str, error_msg: str = "") -> EvaluationSchema:
